@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import UserBoard from "./UserBoard";
+import RegisterRead from "../register_components/RegisterRead";
+import RegisterBoard from "./RegisterBoard";
 
-function AdHeader({logOut}) {
+function AdHeader({ logOut }) {
     const logOutPass = (e) => {
         logOut();
     }
@@ -38,7 +40,7 @@ function AdHeader({logOut}) {
                                     <a href="/userBoard">회원관리</a>
                                 </li>
                                 <li>
-                                    <a href="#">Page 2</a>
+                                    <a href="/read">신청서관리</a>
                                 </li>
                                 <li>
                                     <a href="#">Page 3</a>
@@ -61,6 +63,8 @@ function AdHeader({logOut}) {
                 </div>
                 <Routes>
                     <Route path="/userBoard" element={<UserBoard />} />
+                    <Route path="/read" element={<RegisterBoard />} />
+                    <Route path="/:register_id" element={<RegisterRead />} />
                 </Routes>
             </div>
         </>

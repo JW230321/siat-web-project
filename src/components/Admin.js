@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminService from "../AdminService";
+import AdminService from "../service/AdminService";
 
 function Admin({onLogin}) {
 

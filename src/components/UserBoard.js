@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MemberService from "../MemberService";
+import MemberService from "../service/MemberService";
 import { Button, Form, Modal } from "react-bootstrap";
 
 function UserBoard() {
