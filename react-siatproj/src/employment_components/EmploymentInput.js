@@ -78,7 +78,7 @@ function EmploymentInput() {
     }
 
     return (
-        <div className="container" style={{ height: "150vh", marginTop: "80px" }}>
+        <div className="container" style={{ height: "auto", marginTop: "80px" }}>
             <div style={{ padding: 20, marginTop: 20 }}>
                 <form method="post" action="/employment">
                     <h4>업체 정보</h4>

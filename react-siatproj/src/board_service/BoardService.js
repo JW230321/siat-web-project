@@ -26,6 +26,10 @@ class BoardService {
         return axios.delete(BOARD_API_BASE_URL + "/" + board_id);
     }
 
+    getSearchBoard(kw) {    
+        return axios.get(BOARD_API_BASE_URL + '/search', { params: { kw } });
+    }
+
 }
 
 export default new BoardService();

@@ -2,10 +2,14 @@ package com.siat.web.board;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 	List<Board> findAllByOrderByCreateTimeDesc();
+	
+	List<Board> findAll(Specification<Board> spec, Sort sort);
 }
