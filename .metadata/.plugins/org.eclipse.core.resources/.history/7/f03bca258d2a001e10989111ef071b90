@@ -1,0 +1,5 @@
+package com.siat.web.comment;
+
+public class CommentService {
+
+}
