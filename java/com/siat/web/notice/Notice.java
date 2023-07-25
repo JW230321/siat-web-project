@@ -2,6 +2,9 @@ package com.siat.web.notice;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,14 +18,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notice {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long notice_id;
 	private String title;
-	private String content; 
+	private String content;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date created_time = new Date();
-	private int count = 0;
+	@Column(columnDefinition = "integer default 0", nullable = false)
+	private int count;
 	
 	
+	public void setViewCount(int i) {
+		
+	}
+	public int getViewCount() {
+		return count+=1;
+	}
+
 }

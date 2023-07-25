@@ -1,81 +1,54 @@
 package com.siat.web.notice;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
-
-@Controller
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+@RequestMapping("/api")
+@RestController
 public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
 	
 	@GetMapping("/noticeList")
-	public String NoticeList(Model model) {
+	public List<Notice> noticeList() {
 	    
-		List<Notice> noticeList = noticeService.noticeList();
-		
-	    model.addAttribute("noticeList", noticeList);
-
-	    return "noticeList";
-	}
-	
-
-	@GetMapping("/insertNotice")
-	public String insertNoticeView() {
-		
-		return "insertNotice";
+	    return noticeService.findAll();
 	}
 	
 	@PostMapping("/insertNotice")
-	public String insertNotice(@ModelAttribute("notice") Notice notice) {
-		
-		noticeService.insertNotice(notice);
-		return "redirect:noticeList";
+	public Notice insertNotice(@RequestBody Notice notice) {
+		return noticeService.insertNotice(notice);
 	}
 	
-	@GetMapping("/detailNotice")
-	public String detailNoticeView( Notice notice, Model model) {
-
-	    // 게시글 조회
-		Notice retrievedNotice = noticeService.detailNotice(notice);
-
-	    // 조회수 증가
-		noticeService.increaseCount(notice.getNotice_id());
-
-	    model.addAttribute("notice", retrievedNotice);
-	    return "detailNotice";
-	}
-//	
-//	
-	@GetMapping("/modifyNotice")
-	public String modifyNoticeView(@RequestParam(name = "notice_id", required = false) Long notice_id, Model model) {
-
-	    Notice notice = noticeService.getNoticeByNotice(notice_id);
-	    model.addAttribute("notice", notice);
-	    return "modifyNotice";
+	@GetMapping("/detailNotice/{notice_id}")
+    public ResponseEntity<Notice> getNoticeById(@PathVariable Long notice_id) {
+        return noticeService.detailNotice(notice_id);
+    }
+	
+	@PostMapping("/modifyNotice/{notice_id}")
+	public ResponseEntity<Notice> updateNotice(@PathVariable Long notice_id, @RequestBody Notice notice){
+		return noticeService.updateNotice(notice_id, notice);
 	}
 	
-	@PostMapping("/modifyNotice")
-	public String updateNotice(@ModelAttribute("notice") Notice notice) {
-		noticeService.updateNotice(notice);
-		return "redirect:/noticeList";
+	@DeleteMapping("/noticeList/{notice_id}")
+	public ResponseEntity<Map<String, Boolean>> deleteNotice(@PathVariable Long notice_id){
+		return noticeService.deleteNotice(notice_id);
 	}
-//	
-	@GetMapping("/deleteNotice")
-	public String deleteNoticeView( Notice notice) {
-
-		noticeService.deleteNotice(notice);
-	    return "forward:/noticeList";
-	}
+	
 	
 	
 	
