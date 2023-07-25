@@ -37,7 +37,7 @@ function Board1() {
                 </tbody>
             </table>
             <div>
-                <button type="submit" className="btn btn-outline-primary"><a href="boardInsert.html">글쓰기</a></button>
+                <button type="submit" className="btn btn-outline-primary"><a href="/boardInput">글쓰기</a></button>
             </div>
         </div>
     )
