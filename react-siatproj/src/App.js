@@ -17,6 +17,10 @@ import WriteBoardComponent from "./board_components/WriteBoardComponent";
 import UpdateBoardComponent from "./board_components/UpdateBoardComponent";
 import ListBoardComponent from "./board_components/ListBoardComponent";
 import EmploymentInput from "./employment_components/EmploymentInput";
+import Notice from "./notice_components/Notice";
+import InsertNotice from "./notice_components/InsertNotice";
+import DetailNotice from "./notice_components/DetailNotice";
+import ModifyNotice from "./notice_components/ModifyNotice";
 
 function App() {
   // 로그인 상태를 로컬 스토리지에서 가져와서 초기 상태 설정
@@ -58,6 +62,10 @@ function App() {
         <Route path="/detail2" element={<ProcessDetail2 />} />
         <Route path="/input" element={<ProcessInput />} />
         <Route path="/input2" element={<ProcessInput2 />} />
+        <Route path="/noticeList" element={<Notice />} />
+        <Route path="/insertNotice" element={<InsertNotice />} />
+        <Route path="/detailNotice/:notice_id" element={<DetailNotice  />} />
+        <Route path="/modifyNotice/:notice_id" element={<ModifyNotice />}/>
       </Routes>
       <Footer />
     </div>

@@ -4,6 +4,7 @@ import RegisterRead from "../register_components/RegisterRead";
 import RegisterBoard from "./RegisterBoard";
 import EmploymentBoard from "./EmploymentBoard";
 import EmploymentRead from "../employment_components/EmploymentRead";
+import NoticeBoard from "./NoticeBoard";
 
 function AdHeader({ logOut }) {
     const logOutPass = (e) => {
@@ -48,7 +49,7 @@ function AdHeader({ logOut }) {
                                     <a href="/employment">구인요청 관리</a>
                                 </li>
                                 <li>
-                                    <a href="#">Page 3</a>
+                                    <a href="/noticeList">공지사항</a>
                                 </li>
                             </ul>
                         </li>
@@ -72,6 +73,7 @@ function AdHeader({ logOut }) {
                     <Route path="/:register_id" element={<RegisterRead />} />
                     <Route path="/employment" element={<EmploymentBoard />} />
                     <Route path="/employment/:employment_id" element={<EmploymentRead />} />
+                    <Route path="/noticeList" element={<NoticeBoard />} />
                 </Routes>
             </div>
         </>
