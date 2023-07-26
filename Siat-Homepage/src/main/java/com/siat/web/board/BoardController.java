@@ -23,16 +23,17 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	
 	// get all Board
 	@GetMapping("/board")
 	public List<Board> getAllBoards() {
 		return boardService.getAllBoard();
 	}
-	
+
 	// insert board
 	@PostMapping("/board")
-	public Board createBoard(@RequestBody Board board) {
-		return boardService.createBoard(board);
+	public Board createBoard(@RequestBody Board board, @RequestParam Long memberId) {
+	    return boardService.createBoard(board, memberId);
 	}
 	
 	// get one board

@@ -31,7 +31,15 @@ const ListBoardComponent = () => {
 
   const fetchBoards = () => {
     BoardService.getBoards().then((res) => {
-      setBoards(res.data);
+      // 'author' 속성을 추가하여 boards 배열을 업데이트합니다.
+      const boardsWithAuthor = res.data.map(board => ({
+        ...board,
+        author: {
+          name: board.author.name, // 예시로 memberNo를 name으로 활용하였습니다.
+        },
+      }));
+      setBoards(boardsWithAuthor);
+      console.log(boardsWithAuthor)
     });
   };
 
@@ -48,6 +56,7 @@ const ListBoardComponent = () => {
     setCurrentPage(pageNumber);
   };
 
+  
   return (
     <div className="container" style={{ height: "60vh", marginTop: "80px" }}>
       <h2 className="text-start"><a href='/board' style={{color:"black"}}>자유게시판</a></h2>
@@ -76,7 +85,7 @@ const ListBoardComponent = () => {
                   <td>
                     <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
                   </td>
-                  <td>{board.memberNo}</td>
+                  <td>{board.author.name}</td>
                   <td>{board.createTime}</td>
                   <td>{board.updateTime}</td>
                   <td>{board.count}</td>
@@ -91,7 +100,7 @@ const ListBoardComponent = () => {
                   <td>
                     <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
                   </td>
-                  <td>{board.memberNo}</td>
+                  <td>{board.author.name}</td>
                   <td>{board.createTime}</td>
                   <td>{board.updateTime}</td>
                   <td>{board.count}</td>

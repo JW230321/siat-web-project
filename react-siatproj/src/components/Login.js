@@ -8,7 +8,6 @@ function Login({handleLogin}) {
     const [password, setPassword] = useState("");
 
 
-
     const changeIdHandler = (e) => {
         setId(e.target.value);
     };
@@ -28,7 +27,7 @@ function Login({handleLogin}) {
                 console.log(response.data); // 서버에서 반환한 응답 데이터 처리
                 const memberData = JSON.stringify(response.data);
                 // 로그인 성공 시 추가 처리를 여기에 작성
-                if (response.data.id === id) {
+                if (response.data.id === id && response.data.password === password) {
                     localStorage.setItem("MemberData",memberData)
                     alert("로그인 성공!")
                     handleLogin();

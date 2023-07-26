@@ -11,11 +11,11 @@ const WriteBoardComponent = () => {
   const [content, setContent] = useState('');
 
   //console.log(localStorage.getItem("MemberData"))
-  
+
 
   useEffect(() => {
     setFindByMember(JSON.parse(localStorage.getItem("MemberData")))
-    
+
   }, [])
   console.log(findByMember)
 
@@ -34,15 +34,17 @@ const WriteBoardComponent = () => {
     setContent(event.target.value);
   };
 
+  // 저장 기능
   const writeBoard = (event) => {
     event.preventDefault();
     const board = {
       title,
       content,
-      // member_id : findByMember.member_id,
     };
     console.log("board => " + JSON.stringify(board));
-    BoardService.writeBoard(board).then((res) => {
+
+    const memberId = findByMember.member_id; // 멤버 아이디값
+    BoardService.writeBoard(board, memberId).then((res) => {
       navigate('/board');
     });
   };

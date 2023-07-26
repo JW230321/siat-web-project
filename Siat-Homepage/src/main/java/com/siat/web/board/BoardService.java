@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.siat.web.member.Member;
+import com.siat.web.member.MemberRepository;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -24,6 +25,9 @@ public class BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	@Autowired
+	private MemberRepository memberRepository;
 
 	// get boards data
 	public List<Board> getAllBoard() {
@@ -39,8 +43,14 @@ public class BoardService {
 	}
 
 	// insert data into board
-	public Board createBoard(Board board) {
-		return boardRepository.save(board);
+	public Board createBoard(Board board, Long memberId) {
+		Member author = memberRepository.findById(memberId).orElse(null);
+		if (author != null) {
+            board.setAuthor(author); // 게시판에 작성자 정보를 설정
+            return boardRepository.save(board); // 게시판 저장
+        }
+		// memberId에 해당하는 회원이 존재하지 않을 경우 처리
+        return null;
 	}
 
 	// get one board by board_id
