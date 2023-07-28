@@ -34,6 +34,10 @@ class BoardService {
         return axios.get(BOARD_API_BASE_URL + '/search', { params: { kw } });
     }
 
+    createComment(comment, boardId) {
+        return axios.post(`${BOARD_API_BASE_URL}/${boardId}/comments`, comment);
+    }
+
 }
 
 export default new BoardService();

@@ -31,15 +31,18 @@ const ListBoardComponent = () => {
 
   const fetchBoards = () => {
     BoardService.getBoards().then((res) => {
-      // 'author' 속성을 추가하여 boards 배열을 업데이트합니다.
-      const boardsWithAuthor = res.data.map(board => ({
-        ...board,
-        author: {
-          name: board.author.name, // 예시로 memberNo를 name으로 활용하였습니다.
-        },
-      }));
-      setBoards(boardsWithAuthor);
-      console.log(boardsWithAuthor)
+      if (res.data && res.data.length > 0) {
+        // 'author' 속성을 추가하여 boards 배열을 업데이트합니다.
+        const boardsWithAuthor = res.data.map(board => ({
+          ...board,
+          author: board.author ? { name: board.author.name } : null,
+        }));
+        setBoards(boardsWithAuthor);
+        console.log(boardsWithAuthor);
+      } else {
+        setBoards([]);
+        console.log("res.data is empty");
+      }
     });
   };
 
@@ -85,7 +88,7 @@ const ListBoardComponent = () => {
                   <td>
                     <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
                   </td>
-                  <td>{board.author.name}</td>
+                  <td>{board.author && board.author.name}</td>
                   <td>{board.createTime}</td>
                   <td>{board.updateTime}</td>
                   <td>{board.count}</td>
@@ -100,7 +103,7 @@ const ListBoardComponent = () => {
                   <td>
                     <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
                   </td>
-                  <td>{board.author.name}</td>
+                  <td>{board.author && board.author.name}</td>
                   <td>{board.createTime}</td>
                   <td>{board.updateTime}</td>
                   <td>{board.count}</td>

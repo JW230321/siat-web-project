@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 @RestController
 @RequestMapping("/siat")
 public class CommentController {
@@ -20,16 +20,16 @@ public class CommentController {
         return commentService.getAllComments();
     }
 
-    // 게시글에 대한 댓글 조회
-    @GetMapping("/comment/board/{board_id}")
-    public List<Comment> getCommentsByBoardId(@PathVariable Long board_id) {
-        return commentService.getCommentsByBoardId(board_id);
-    }
+//    // 게시글에 대한 댓글 조회
+//    @GetMapping("/comment/board/{board_id}")
+//    public List<Comment> getCommentsByBoardId(@PathVariable Long board_id) {
+//        return commentService.getCommentsByBoardId(board_id);
+//    }
 
     // 댓글 추가
-    @PostMapping("/comment")
-    public Comment createComment(@RequestBody Comment comment) {
-        return commentService.createComment(comment);
+    @PostMapping("/board/{id}/comments")
+    public ResponseEntity<Comment> commentSave(@PathVariable Long id, @RequestBody Comment comment) {
+        return ResponseEntity.ok(commentService.commentSave(id, comment));
     }
 
     // 댓글 수정

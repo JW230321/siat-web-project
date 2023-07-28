@@ -152,10 +152,18 @@ function NoticeBoard() {
                   <Form.Control
                     type="text"
                     as="textarea"
+                    style={{resize:"none"}}
                     rows={5}
                     defaultValue={SelectedNotice.content}
                     onChange={changeContentHandler}
                   />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>이미지</Form.Label>
+                </Form.Group>
+                <Form.Label>저장된 파일</Form.Label>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <input type="file" />
                 </Form.Group>
               </Form>
             )}
