@@ -14,7 +14,10 @@ function AdHeader({ logOut }) {
         <>
             <nav id="sidebar">
                 <div className="p-4 pt-5">
-                    <a href="#" className="img logo rounded-circle mb-5"></a>
+                    <div>
+                        <a href="/" className="img logo rounded-circle mb-2"></a>
+                        <div className="adminUser mb-2">관리자 님 안녕하세요.</div>
+                    </div>
 
                     <ul className="list-unstyled components mb-5">
                         <li className="active">
@@ -65,7 +68,7 @@ function AdHeader({ logOut }) {
             </nav>
             <div id="content">
                 <div className="util-area">
-                    <a href="/home" onClick={logOutPass}>logout</a>
+                    <a href="/" onClick={logOutPass} style={{fontSize:16}}>logout</a>
                 </div>
                 <Routes>
                     <Route path="/userBoard" element={<UserBoard />} />
