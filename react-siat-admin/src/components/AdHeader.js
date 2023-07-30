@@ -5,6 +5,9 @@ import RegisterBoard from "./RegisterBoard";
 import EmploymentBoard from "./EmploymentBoard";
 import EmploymentRead from "../employment_components/EmploymentRead";
 import NoticeBoard from "./NoticeBoard";
+import InsertNotice from "./InsertNotice";
+import DetailNotice from "./DetailNotice";
+import ModifyNotice from "./ModifyNotice";
 
 function AdHeader({ logOut }) {
     const logOutPass = (e) => {
@@ -74,6 +77,9 @@ function AdHeader({ logOut }) {
                     <Route path="/employment" element={<EmploymentBoard />} />
                     <Route path="/employment/:employment_id" element={<EmploymentRead />} />
                     <Route path="/noticeList" element={<NoticeBoard />} />
+                    <Route path="/insertNotice" element={<InsertNotice />} />
+                    <Route path="/detailNotice/:notice_id" element={<DetailNotice />} />
+                    <Route path="/ModifyNotice/:notice_id" element={<ModifyNotice />} />
                 </Routes>
             </div>
         </>
