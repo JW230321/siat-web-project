@@ -18,7 +18,7 @@ public class AdminController {
 	
 //	@Autowired
 //	private AdminRepository adminRepository;
-	
+//	
 	@PostMapping("/admin")
 	public Admin findById(@RequestBody Admin admin) {
 		return adminService.findById(admin);

@@ -25,7 +25,7 @@ public class Notice {
 	private String title;
 	private String content;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date created_time = new Date();
+	private Date createTime = new Date();
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int count;
 	
