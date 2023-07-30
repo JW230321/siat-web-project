@@ -11,7 +11,7 @@ const ReadBoardComponent = () => {
 
   useEffect(() => {
     BoardService.getOneBoard(board_id).then((res) => {
-        console.log("====>" + res.data)
+        console.log("====>" + JSON.stringify(res.data))
       setBoard(res.data);
       setComments(res.data.comments);
     });
@@ -62,6 +62,9 @@ const ReadBoardComponent = () => {
     <div style={{height : "60vh", marginTop : "80px"}}>
       <div className="card col-md-6 offset-md-3" >
         <h3 className="text-center"> 내용 보기 </h3>
+        <div className="row">
+        <label> 작성자 </label>: {board.author ? board.author.name : "작성자 정보 없음"}
+        </div>
         <div className="row">
           <label> Title </label>: {board.title}
         </div>

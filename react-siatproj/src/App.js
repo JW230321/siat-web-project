@@ -22,8 +22,6 @@ import InsertNotice from "./notice_components/InsertNotice";
 import DetailNotice from "./notice_components/DetailNotice";
 import ModifyNotice from "./notice_components/ModifyNotice";
 
-
-
 function App() {
   // 로그인 상태를 로컬 스토리지에서 가져와서 초기 상태 설정
   const [isLoggedIn, setIsLoggedIn] = useState(

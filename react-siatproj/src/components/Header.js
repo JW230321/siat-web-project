@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Header({isLoggedIn,setIsLoggedIn,handleLogout}) {
+function Header({ isLoggedIn, setIsLoggedIn, handleLogout }) {
 
     useEffect(() => {
         // 컴포넌트가 마운트될 때, 로컬 스토리지에 저장된 로그인 상태를 가져와서 설정
         const storedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
         setIsLoggedIn(storedLoggedIn);
-      }, []);
+    }, []);
 
 
-      const isLogOut = () => {
+    const isLogOut = () => {
         alert("로그아웃 되었습니다!")
         handleLogout()
-      }
+    }
     return (
         <header id="header" className="fixed-top d-flex align-items-center">
             <div className="container d-flex align-items-center">

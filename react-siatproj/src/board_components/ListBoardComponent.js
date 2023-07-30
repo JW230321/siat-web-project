@@ -7,6 +7,23 @@ const ListBoardComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10); // 한 페이지에 보여질 아이템 수
   const navigate = useNavigate();
+  // 검색기능
+  const [keyword, setKeyword] = useState('');
+  const [searchedBoards, setSearchedBoards] = useState([]);
+
+  // 검색 버튼을 클릭할 때 호출되는 함수
+  const handleSearch = () => {
+    BoardService.getSearchBoard(keyword)
+      .then((res) => {
+        setSearchedBoards(res.data);
+        if (res.data.length === 0) {
+          alert("검색 결과가 없습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error('Error while searching boards:', error);
+      });
+  };
 
   useEffect(() => {
     fetchBoards();
@@ -14,7 +31,15 @@ const ListBoardComponent = () => {
 
   const fetchBoards = () => {
     BoardService.getBoards().then((res) => {
-      setBoards(res.data);
+      // 'author' 속성을 추가하여 boards 배열을 업데이트합니다.
+      const boardsWithAuthor = res.data.map(board => ({
+        ...board,
+        author: {
+          name: board.author.name, // 예시로 memberNo를 name으로 활용하였습니다.
+        },
+      }));
+      setBoards(boardsWithAuthor);
+      console.log(boardsWithAuthor)
     });
   };
 
@@ -31,16 +56,17 @@ const ListBoardComponent = () => {
     setCurrentPage(pageNumber);
   };
 
+  
   return (
-    <div className="container" style={{height : "60vh", marginTop : "80px"}}>
-      <h2 className="text-center">자유게시판</h2>
+    <div className="container" style={{ height: "60vh", marginTop: "80px" }}>
+      <h2 className="text-start"><a href='/board' style={{color:"black"}}>자유게시판</a></h2>
       <div className="row">
         <button className="btn btn-primary" onClick={createBoard}>
           글 작성
         </button>
       </div>
       <div className="row">
-        <table className="table table-striped table-bordered" style={{textAlign:'center'}}>
+        <table className="table table-striped table-bordered" style={{ textAlign: 'center' }}>
           <thead>
             <tr>
               <th>글 번호</th>
@@ -51,20 +77,37 @@ const ListBoardComponent = () => {
               <th>조회수</th>
             </tr>
           </thead>
-          <tbody>
-            {currentItems.map((board, index) => (
-              <tr key={board.board_id}>
-                <td>{index + 1 + indexOfFirstItem}</td>
-                <td>
-                  <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
-                </td>
-                <td>{board.memberNo}</td>
-                <td>{board.createTime}</td>
-                <td>{board.updateTime}</td>
-                <td>{board.count}</td>
-              </tr>
-            ))}
-          </tbody>
+          {searchedBoards.length > 0 ? (
+            <tbody>
+              {searchedBoards.map((board, index) => (
+                <tr key={board.board_id}>
+                  <td>{index + 1 + indexOfFirstItem}</td>
+                  <td>
+                    <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
+                  </td>
+                  <td>{board.author.name}</td>
+                  <td>{board.createTime}</td>
+                  <td>{board.updateTime}</td>
+                  <td>{board.count}</td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            <tbody>
+              {currentItems.map((board, index) => (
+                <tr key={board.board_id}>
+                  <td>{index + 1 + indexOfFirstItem}</td>
+                  <td>
+                    <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
+                  </td>
+                  <td>{board.author.name}</td>
+                  <td>{board.createTime}</td>
+                  <td>{board.updateTime}</td>
+                  <td>{board.count}</td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
       <div className="pagination">
@@ -72,9 +115,8 @@ const ListBoardComponent = () => {
           {Array.from({ length: Math.ceil(boards.length / itemsPerPage) }).map(
             (item, index) => (
               <li
-                className={`page-item ${
-                  index + 1 === currentPage ? 'active' : ''
-                }`}
+                className={`page-item ${index + 1 === currentPage ? 'active' : ''
+                  }`}
                 key={index}
               >
                 <button
@@ -88,7 +130,26 @@ const ListBoardComponent = () => {
           )}
         </ul>
       </div>
+      <div>
+        {/* 검색 기능 추가 */}
+        <input type="text" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+        <button onClick={handleSearch}>Search</button>
+        {/* 검색 결과 출력
+        {searchedBoards.length > 0 && (
+          <div>
+            <h3>검색 결과</h3>
+            <ul>
+              {searchedBoards.map((board) => (
+                <li key={board.board_id}>
+                  <Link to={`/read-board/${board.board_id}`}>{board.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )} */}
+      </div>
     </div>
+
   );
 };
 

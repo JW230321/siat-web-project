@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const BOARD_API_BASE_URL = "http://localhost:8088/siat/board"; 
+const BOARD_API_BASE_URL = "http://localhost:8088/siat/board";
 
 class BoardService {
 
@@ -10,8 +10,12 @@ class BoardService {
         return axios.get(BOARD_API_BASE_URL);
     }
 
-    writeBoard(board) {
-        return axios.post(BOARD_API_BASE_URL, board);
+    // writeBoard(board) {
+    //     return axios.post(BOARD_API_BASE_URL, board);
+    // }
+
+    writeBoard(board, memberId) {
+        return axios.post(`${BOARD_API_BASE_URL}?memberId=${memberId}`, board);
     }
 
     getOneBoard(board_id) {
@@ -24,6 +28,10 @@ class BoardService {
 
     deleteBoard(board_id) {
         return axios.delete(BOARD_API_BASE_URL + "/" + board_id);
+    }
+
+    getSearchBoard(kw) {
+        return axios.get(BOARD_API_BASE_URL + '/search', { params: { kw } });
     }
 
 }
