@@ -4,7 +4,10 @@ import RegisterRead from "../register_components/RegisterRead";
 import RegisterBoard from "./RegisterBoard";
 import EmploymentBoard from "./EmploymentBoard";
 import EmploymentRead from "../employment_components/EmploymentRead";
-import NoticeBoard from "./NoticeBoard";
+import InsertNotice from "../NoticeComponents/InsertNotice";
+import NoticeBoard from "../NoticeComponents/NoticeBoard";
+import DetailNotice from "../NoticeComponents/DetailNotice";
+import ModifyNotice from "../NoticeComponents/ModifyNotice";
 
 function AdHeader({ logOut }) {
     const logOutPass = (e) => {
@@ -13,7 +16,7 @@ function AdHeader({ logOut }) {
     return (
         <>
             <nav id="sidebar">
-                <div className="p-4 pt-5">
+                <div className="p-4">
                     <div>
                         <a href="/" className="img logo rounded-circle mb-2"></a>
                         <div className="adminUser mb-2">관리자 님 안녕하세요.</div>
@@ -77,6 +80,9 @@ function AdHeader({ logOut }) {
                     <Route path="/employment" element={<EmploymentBoard />} />
                     <Route path="/employment/:employment_id" element={<EmploymentRead />} />
                     <Route path="/noticeList" element={<NoticeBoard />} />
+                    <Route path="/insertNotice" element={<InsertNotice />} />
+                    <Route path="/detailNotice/:notice_id" element={<DetailNotice />} />
+                    <Route path="/ModifyNotice/:notice_id" element={<ModifyNotice />} />
                 </Routes>
             </div>
         </>
