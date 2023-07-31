@@ -9,6 +9,10 @@ function Notice() {
   const [getAllNotice, setGetAllNotice] = useState([]);
   const [noticeCount, setNoticeCount] = useState([]);
   const [searchOption, setSearchOption] = useState("title");
+
+  // 페이징 처리
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // 한 페이지에 보여질 아이템 수
   
   // 검색기능
   const [keyword, setKeyword] = useState('');
@@ -44,7 +48,16 @@ function Notice() {
     setSearchOption(e.target.value);
   }
 
+  // 페이징 처리에 필요한 변수 계산
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = getAllNotice.slice(indexOfFirstItem, indexOfLastItem);
 
+  const paginate = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= Math.ceil(getAllNotice.length / itemsPerPage)) {
+      setCurrentPage(pageNumber);
+    }
+  };
 
 
   return (
@@ -93,13 +106,13 @@ function Notice() {
         ) : (
           <tbody>
             {
-              getAllNotice.map((getAllNotice) => {
+              currentItems.map((items, index) => {
                 return (
-                  <tr key={getAllNotice.notice_id}>
-                    <td>{getAllNotice.notice_id}</td>
-                    <td><Link to={`/detailNotice/${getAllNotice.notice_id}`} className="noticeLink">{getAllNotice.title}</Link></td>
-                    <td>{new Date(getAllNotice.createTime).toLocaleDateString()}</td>
-                    <td>{getAllNotice.count}</td>
+                  <tr key={items.notice_id}>
+                    <td>{index + 1 + indexOfFirstItem}</td>
+                    <td><Link to={`/detailNotice/${items.notice_id}`} >{items.title}</Link></td>
+                    <td>{new Date(items.createTime).toLocaleDateString()}</td>
+                    <td>{items.count}</td>
                   </tr>
                 )
               })
@@ -107,7 +120,43 @@ function Notice() {
           </tbody>
         )}
       </table>
+      <div className="pagination">
+        <button
+          className="page-link"
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          이전
+        </button>
+        <ul className="pagination">
+          {Array.from({ length: Math.ceil(getAllNotice.length / itemsPerPage) }).map(
+            (item, index) => (
+              <li
+                className={`page-item ${
+                  index + 1 === currentPage ? "active" : ""
+                }`}
+                key={index}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => paginate(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            )
+          )}
+        </ul>
+        <button
+          className="page-link"
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === Math.ceil(getAllNotice.length / itemsPerPage)}
+        >
+          다음
+        </button>
+      </div>
     </div>
+    
   )
 }
 

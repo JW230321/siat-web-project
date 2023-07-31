@@ -3,7 +3,6 @@ package com.siat.web.board;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.siat.web.comment.Comment;
 import com.siat.web.member.Member;

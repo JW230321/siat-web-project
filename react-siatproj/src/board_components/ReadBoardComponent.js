@@ -3,11 +3,18 @@ import BoardService from "../board_service/BoardService";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 const ReadBoardComponent = () => {
+  const [findByMember, setFindByMember] = useState({});
+
   const { board_id } = useParams();
   const navigate = useNavigate();
   const [board, setBoard] = useState({});
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    setFindByMember(JSON.parse(localStorage.getItem("MemberData")))
+    console.log("member===>"+JSON.stringify(findByMember))
+  }, [])
 
   useEffect(() => {
     BoardService.getOneBoard(board_id).then((res) => {
@@ -42,21 +49,23 @@ const ReadBoardComponent = () => {
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
-
+  console.log(board.author ? board.author: "작성자 정보 없음")
   const addComment = (event) => {
     event.preventDefault();
-
     // 댓글 정보를 객체로 생성
     const newComment = {
       content: comment,
       createDate: new Date(), // 댓글 생성일시
       updateDate: new Date(), // 댓글 수정일시
       board: board, // 해당 댓글이 속한 게시물 정보
+      author: findByMember
     };
+    
 
     // CommentService를 이용하여 서버로 댓글 정보를 전송
     BoardService.createComment(newComment, board_id)
       .then((res) => {
+        
         console.log("댓글 추가 성공:", JSON.stringify(res.data));
         // 새로운 댓글 목록을 가져와서 업데이트
         BoardService.getOneBoard(board_id)
@@ -130,7 +139,7 @@ const ReadBoardComponent = () => {
           {
             comments.map((a, i) => {
               return (
-                <div key={i}>{comments[i].content}</div>
+               <div key={i}>{comments[i].author && comments[i].author.name}:{comments[i].content}</div>
               )
             })
           }
