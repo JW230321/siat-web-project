@@ -8,6 +8,9 @@ import InsertNotice from "../NoticeComponents/InsertNotice";
 import NoticeBoard from "../NoticeComponents/NoticeBoard";
 import DetailNotice from "../NoticeComponents/DetailNotice";
 import ModifyNotice from "../NoticeComponents/ModifyNotice";
+import BoardList from "../BoardComponents/BoardList";
+import DetailBoard from "../BoardComponents/DetailBoard";
+import ModifyBoard from "../BoardComponents/ModifyBoard";
 
 function AdHeader({ logOut }) {
     const logOutPass = (e) => {
@@ -57,6 +60,9 @@ function AdHeader({ logOut }) {
                                 <li>
                                     <a href="/noticeList">공지사항</a>
                                 </li>
+                                <li>
+                                    <a href="/boardList">자유게시판</a>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -83,6 +89,9 @@ function AdHeader({ logOut }) {
                     <Route path="/insertNotice" element={<InsertNotice />} />
                     <Route path="/detailNotice/:notice_id" element={<DetailNotice />} />
                     <Route path="/ModifyNotice/:notice_id" element={<ModifyNotice />} />
+                    <Route path="/boardList" element={<BoardList/>} />
+                    <Route path="/detailBoard/:board_id" element={<DetailBoard />} />
+                    <Route path="/modifyBoard/:board_id" element={<ModifyBoard />} />
                 </Routes>
             </div>
         </>

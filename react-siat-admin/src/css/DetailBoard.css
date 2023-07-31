@@ -1,0 +1,12 @@
+/* .content_tr {
+    border-bottom: 1px solid #e5e5e5;
+} */
+
+.content_head {
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+}
+/* .content_Date {
+    text-align: right;
+  } */

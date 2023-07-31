@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NoticeService from "../notice_service/NoticeService";
 import '../css/notice.css'
-
+import "../css/Pagination.css";
 
 function Notice() {
   const [getAllNotice, setGetAllNotice] = useState([]);

@@ -23,7 +23,7 @@ function DetailNotice() {
   return (
     <div className="container" style={{ height: "auto", marginTop: "80px" }}>
       <div class="image_container">
-        <div className="rounded">커뮤니티</div>
+        <div className="rounded1">커뮤니티</div>
       </div>
       <div>
         <h2 style={{ margin: 35, fontWeight: "bold" }}>공지 사항</h2>

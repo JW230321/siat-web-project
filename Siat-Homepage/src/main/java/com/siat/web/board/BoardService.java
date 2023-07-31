@@ -55,6 +55,8 @@ public class BoardService {
 	public ResponseEntity<Board> getBoard(Long board_id) {
 		Board board = boardRepository.findById(board_id)
 				.orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + board_id + "]"));
+		 // 조회수 증가 쿼리문 호출
+	    boardRepository.increaseCountById(board_id);
 		return ResponseEntity.ok(board);
 	}
 

@@ -29,7 +29,6 @@ public class Notice {
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int count;
 	
-	
 	public void setViewCount(int i) {
 		
 	}

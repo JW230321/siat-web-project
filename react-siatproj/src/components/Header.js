@@ -72,7 +72,6 @@ function Header({ isLoggedIn, setIsLoggedIn, handleLogout }) {
                 </nav>
                 {/* 로그인 */}
                 <div className="header-social-links d-flex align-items-center">
-                    <li><a className="nav-link scrollto" href="#">마이페이지</a></li>
                     {
                         isLoggedIn ? (
                             <li>

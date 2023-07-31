@@ -39,7 +39,7 @@ function NoticeBoard() {
 
   //글쓰기 버튼 클릭
   const insertNotice = () => {
-    navigate('/insertNotice/')
+    navigate('/insertNotice')
   }
 
 

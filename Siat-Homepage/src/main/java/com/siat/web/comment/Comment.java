@@ -32,6 +32,7 @@ public class Comment {
 	
 	private LocalDateTime updateDate;
 	
+	
 	@ManyToOne
     @JoinColumn(name = "member_id")
     private Member author;
