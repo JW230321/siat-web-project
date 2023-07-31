@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 const ListBoardComponent = () => {
   const [boards, setBoards] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // 한 페이지에 보여질 아이템 수
+  const [itemsPerPage] = useState(5); // 한 페이지에 보여질 아이템 수
   const [boardCount, setBoardCount] = useState([]); //게시글수 표시
   const navigate = useNavigate();
   // 검색기능
@@ -60,10 +60,14 @@ const ListBoardComponent = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = boards.slice(indexOfFirstItem, indexOfLastItem);
+  const currentSearchItems = searchedBoards.slice(indexOfFirstItem, indexOfLastItem)
 
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (pageNumber >= 1 && pageNumber <= Math.ceil(boards.length / itemsPerPage)) {
+      setCurrentPage(pageNumber);
+    }
   };
+
 
   //날짜 분까지만 출력
   const formatDateTime = (dateTimeString) => {
@@ -116,7 +120,7 @@ const ListBoardComponent = () => {
           </thead>
           {searchedBoards.length > 0 ? (
             <tbody>
-              {searchedBoards.map((board, index) => (
+              {currentSearchItems.map((board, index) => (
                 <tr key={board.board_id}>
                   <td>{index + 1 + indexOfFirstItem}</td>
                   <td>
@@ -146,27 +150,82 @@ const ListBoardComponent = () => {
             </tbody>
           )}
         </table>
-        <div style={{ marginTop: "10px", display: "flex", justifyContent: "space-between" }}>
-          {/* Pagination */}
-          <ul className="pagination">
-            {Array.from({ length: Math.ceil(boards.length / itemsPerPage) }).map(
-              (item, index) => (
-                <li
-                  className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}
-                  key={index}
-                >
-                  <button className="page-link" onClick={() => paginate(index + 1)}>
-                    {index + 1}
-                  </button>
-                </li>
-              )
-            )}
-          </ul>
 
-          {/* Button */}
-          <div className="button_box">
-            <button className="content_button" onClick={createBoard}>글쓰기</button>
+        {searchedBoards.length > 0 ? (
+          <div className="pagination">
+            <button
+              className="page-link"
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              이전
+            </button>
+            <ul className="pagination">
+              {Array.from({ length: Math.ceil(searchedBoards.length / itemsPerPage) }).map(
+                (item, index) => (
+                  <li
+                    className={`page-item ${index + 1 === currentPage ? "active" : ""
+                      }`}
+                    key={index}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => paginate(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
+            <button
+              className="page-link"
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === Math.ceil(searchedBoards.length / itemsPerPage)}
+            >
+              다음
+            </button>
           </div>
+        ) : (
+          <div className="pagination">
+            <button
+              className="page-link"
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              이전
+            </button>
+            <ul className="pagination">
+              {Array.from({ length: Math.ceil(boards.length / itemsPerPage) }).map(
+                (item, index) => (
+                  <li
+                    className={`page-item ${index + 1 === currentPage ? "active" : ""
+                      }`}
+                    key={index}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => paginate(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
+            <button
+              className="page-link"
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === Math.ceil(boards.length / itemsPerPage)}
+            >
+              다음
+            </button>
+          </div>
+        )}
+
+        {/* Button */}
+        <div className="button_box">
+          <button className="content_button" onClick={createBoard}>글쓰기</button>
         </div>
 
 
