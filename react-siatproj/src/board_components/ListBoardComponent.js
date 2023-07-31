@@ -9,8 +9,11 @@ const ListBoardComponent = () => {
   const [boardCount, setBoardCount] = useState([]); //게시글수 표시
   const navigate = useNavigate();
   // 검색기능
+  const [searchOption, setSearchOption] = useState("title");
   const [keyword, setKeyword] = useState('');
   const [searchedBoards, setSearchedBoards] = useState([]);
+
+
 
   // 검색 버튼을 클릭할 때 호출되는 함수
   const handleSearch = () => {
@@ -25,6 +28,10 @@ const ListBoardComponent = () => {
         console.error('Error while searching boards:', error);
       });
   };
+
+  const handleOptionChange = (e) => {
+    setSearchOption(e.target.value);
+  }
 
   useEffect(() => {
     fetchBoards();
@@ -87,18 +94,18 @@ const ListBoardComponent = () => {
 
   return (
     <div className="container" style={{ height: "auto", marginTop: "80px" }}>
-      <div class="image-container">
+      <div className="image-container">
         <div className="rounded1">게시판</div>
       </div>
       <div>
         <h2 style={{ margin: 35, fontWeight: "bold" }}>자유 게시판</h2>
       </div>
-      <div class="search_group">
-        <select class="custom_select" value={searchedBoards} onChange={handleBoardChange} required>
+      <div className="search_group">
+        <select className="custom_select" value={searchOption} onChange={handleOptionChange} required>
           <option value="title" >제목</option>
           <option value="content">내용</option>
         </select>
-        <div class="search_content">
+        <div className="search_content">
           <input type="text" placeholder="검색어 입력" value={keyword} onChange={(e) => setKeyword(e.target.value)}></input>
           <button onClick={handleSearch} className="search_image"></button>
         </div>
