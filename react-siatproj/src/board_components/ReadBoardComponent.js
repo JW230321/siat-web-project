@@ -11,7 +11,7 @@ const ReadBoardComponent = () => {
 
   useEffect(() => {
     BoardService.getOneBoard(board_id).then((res) => {
-        console.log("====>" + JSON.stringify(res.data))
+      //console.log("====>" + JSON.stringify(res.data))
       setBoard(res.data);
       setComments(res.data.comments);
     });
@@ -45,25 +45,43 @@ const ReadBoardComponent = () => {
 
   const addComment = (event) => {
     event.preventDefault();
-    if (comment.trim() === "") {
-      return;
-    }
+
+    // 댓글 정보를 객체로 생성
     const newComment = {
       content: comment,
-      boardNo: board.no,
+      createDate: new Date(), // 댓글 생성일시
+      updateDate: new Date(), // 댓글 수정일시
+      board: board, // 해당 댓글이 속한 게시물 정보
     };
-    BoardService.addComment(newComment).then((res) => {
-      setComment("");
-      setComments([...comments, res.data]);
-    });
+
+    // CommentService를 이용하여 서버로 댓글 정보를 전송
+    BoardService.createComment(newComment, board_id)
+      .then((res) => {
+        console.log("댓글 추가 성공:", JSON.stringify(res.data));
+        // 새로운 댓글 목록을 가져와서 업데이트
+        BoardService.getOneBoard(board_id)
+          .then((res) => {
+            setBoard(res.data);
+            setComments(res.data.comments);
+          })
+          .catch((error) => {
+            console.error("댓글 추가 후 게시물 정보 가져오기 실패:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("댓글 추가 실패:", error);
+      });
+
+    // 댓글 입력 필드 비우기
+    setComment("");
   };
 
   return (
-    <div style={{height : "60vh", marginTop : "80px"}}>
+    <div style={{ height: "auto", marginTop: "80px" }}>
       <div className="card col-md-6 offset-md-3" >
         <h3 className="text-center"> 내용 보기 </h3>
         <div className="row">
-        <label> 작성자 </label>: {board.author ? board.author.name : "작성자 정보 없음"}
+          <label> 작성자 </label>: {board.author ? board.author.name : "작성자 정보 없음"}
         </div>
         <div className="row">
           <label> Title </label>: {board.title}
@@ -106,6 +124,16 @@ const ReadBoardComponent = () => {
               작성
             </button>
           </form>
+        </div>
+        <div>
+          <h5>댓글</h5>
+          {
+            comments.map((a, i) => {
+              return (
+                <div key={i}>{comments[i].content}</div>
+              )
+            })
+          }
         </div>
       </div>
     </div>

@@ -22,6 +22,9 @@ function deleteNotice(notice_id){
   return axios.delete(NOTICE_API_BASE_URL + "noticeList/" + notice_id);
 }
 
+function getSearchNotice(kw, searchOption) {
+  return axios.get(NOTICE_API_BASE_URL + 'noticeList/search', { params: { kw, searchOption } });
+}
 
 
 
@@ -30,7 +33,8 @@ const NoticeService = {
   insertNotice,
   detailNotice,
   modifyNotice,
-  deleteNotice
+  deleteNotice,
+  getSearchNotice
 };
 
 export default NoticeService;

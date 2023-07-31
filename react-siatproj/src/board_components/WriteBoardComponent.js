@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BoardService from '../board_service/BoardService';
-import MemberService from '../services/MemberService';
 
 const WriteBoardComponent = () => {
   const [findByMember, setFindByMember] = useState({});
@@ -55,7 +54,7 @@ const WriteBoardComponent = () => {
 
   return (
     <div>
-      <div className="container" style={{ height: "60vh", marginTop: "80px" }}>
+      <div className="container" style={{ height: "auto", marginTop: "80px" }}>
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
             <h3 className="text-center">새글을 작성해주세요</h3>
