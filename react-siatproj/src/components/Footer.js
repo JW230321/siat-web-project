@@ -4,8 +4,8 @@ function Footer() {
             {/* Footer 윗 부분 */}
             <div className="footer-top">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-lg-3 col-md-6 footer-contact">
+                    <div className="row" style={{justifyContent:"space-around"}}>
+                        <div className="col-lg-3 col-md-6" style={{marginTop:86}}>
                             <p>A108 Adam Street <br />성남시, 판교디지털훈련센터<br /> United States <br /><br />
                                 <strong>Phone:</strong> +1 5589 55488 55<br />
                                 <strong>Email:</strong> info@example.com<br />
@@ -22,13 +22,19 @@ function Footer() {
                             </ul>
                         </div>
                         <div className="col-lg-4 col-md-6 footer-newsletter">
-                            <h4>지도</h4>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1239.6271344861927!2d127.09347579039559!3d37.41112304713773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca7111a5c5ff7%3A0x3099a7e71ab15c34!2z7ZWc6rWt7J6l7JWg7J246rOg7Jqp6rO164uoIO2MkOq1kOuUlOyngO2EuO2biOugqOyEvO2EsA!5e0!3m2!1sko!2skr!4v1690164253799!5m2!1sko!2skr"
+                                width="440"
+                                height="225"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
             {/* Footer 아랫 부분 */}
-            <div className="container d-md-flex py-4" style={{justifyContent:"space-between"}}>
+            <div className="container d-md-flex py-4" style={{ justifyContent: "space-between" }}>
                 <div className="text-center text-md-start">
                     <div className="copyright" >
                         &copy; Copyright <strong><span>Lumia</span></strong>. All Rights Reserved

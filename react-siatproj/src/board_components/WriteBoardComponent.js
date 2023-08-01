@@ -61,7 +61,6 @@ const WriteBoardComponent = () => {
         <div>
           <h2 style={{ margin: 35, fontWeight: "bold" }}>자유 게시판</h2>
         </div>
-        <div className="card-body">
           <form>
             <div className="form-group" style={{ marginBottom: 15 }}>
               <input type="text" placeholder="제목을 입력하세요" name="title" className="form-control" value={title} onChange={changeTitleHandler} />
@@ -84,7 +83,6 @@ const WriteBoardComponent = () => {
           </form>
         </div>
       </div>
-    </div>
   );
 };
 

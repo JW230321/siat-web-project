@@ -31,18 +31,18 @@ const ReadBoardComponent = () => {
   //글 작성시간
   const returnDate1 = (cTime) => {
     return (
-        <label>
-          {formatDateTime(cTime)}
-        </label>
+      <label>
+        {formatDateTime(cTime)}
+      </label>
     );
   };
 
   //글 수정시간
   const returnDate2 = (uTime) => {
     return (
-        <label>
-          <span>{formatDateTime(uTime)} <span style={{ fontSize: "13px"}}>수정</span></span>
-        </label>
+      <label>
+        <span>{formatDateTime(uTime)} <span style={{ fontSize: "13px" }}>수정</span></span>
+      </label>
     );
   };
 
@@ -61,13 +61,12 @@ const ReadBoardComponent = () => {
     setComment(event.target.value);
   };
   console.log(board.author ? board.author : "작성자 정보 없음")
+
   const addComment = (event) => {
     event.preventDefault();
     // 댓글 정보를 객체로 생성
     const newComment = {
       content: comment,
-      createDate: new Date(), // 댓글 생성일시
-      updateDate: new Date(), // 댓글 수정일시
       board: board, // 해당 댓글이 속한 게시물 정보
       author: findByMember
     };
@@ -130,8 +129,8 @@ const ReadBoardComponent = () => {
                 </span>
                 {board.updateTime ? (
                   <span style={{ color: "#999999" }}>
-                  {board.author ? board.author.name : "작성자 정보 없음"} | {returnDate2(board.updateTime)}
-                </span>
+                    {board.author ? board.author.name : "작성자 정보 없음"} | {returnDate2(board.updateTime)}
+                  </span>
                 ) : (
                   <span style={{ color: "#999999" }}>
                     {board.author ? board.author.name : "작성자 정보 없음"} | {returnDate1(board.createTime)}</span>
@@ -148,9 +147,9 @@ const ReadBoardComponent = () => {
         </table>
         {/*       ================================================================= */}
         <div>
-          <div style={{marginBlock: "20px"}}>
+          <div style={{ marginBlock: "20px" }}>
             <span style={{ marginRight: "10px" }}>댓글</span>
-            <span style={{ fontSize: "13px", color: "#999999"}}>총 <span>{commentsCount}</span>건</span>
+            <span style={{ fontSize: "13px", color: "#999999" }}>총 <span>{commentsCount}</span>건</span>
           </div>
           <div className="comment_zone">
             {
@@ -170,8 +169,10 @@ const ReadBoardComponent = () => {
                       <span>작성자 정보 없음</span>
                     )}
                   </p>
-                  <p style={{ marginBottom: "1px" }}>{comment.content}</p>
-                  <p style={{ fontSize: "12px", color: "#999999" }}>{formatDateTime(board.createTime)}</p>
+                  <div key={comment.createDate}>
+                    <p style={{ marginBottom: "1px" }}>{comment.content}</p>
+                    <p style={{ fontSize: "12px", color: "#999999" }}>{formatDateTime(comment.createDate)}</p>
+                  </div>
                 </div>
               ))
             }

@@ -117,7 +117,6 @@ const ListBoardComponent = () => {
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
-              <th>수정일</th>
               <th>조회수</th>
             </tr>
           </thead>
@@ -131,7 +130,6 @@ const ListBoardComponent = () => {
                   </td>
                   <td>{board.author && board.author.name}</td>
                   <td>{formatDateTime(board.createTime)}</td>
-                  <td>{formatDateTime(board.updateTime)}</td>
                   <td>{board.count}</td>
                 </tr>
               ))}
@@ -146,7 +144,6 @@ const ListBoardComponent = () => {
                   </td>
                   <td>{board.author && board.author.name}</td>
                   <td>{formatDateTime(board.createTime)}</td>
-                  <td>{formatDateTime(board.updateTime)}</td>
                   <td>{board.count}</td>
                 </tr>
               ))}
