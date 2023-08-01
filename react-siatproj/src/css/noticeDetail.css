@@ -66,7 +66,7 @@
   line-height: 50px;
   background: #013a86;
   cursor: pointer;
-  margin: 0 0 0 auto;
+  margin: 0 0 0 10px;
   border-radius: 8px;
   float: right;
 }

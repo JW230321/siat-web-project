@@ -5,12 +5,15 @@ import { useNavigate, Link } from 'react-router-dom';
 const ListBoardComponent = () => {
   const [boards, setBoards] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // 한 페이지에 보여질 아이템 수
+  const [itemsPerPage] = useState(5); // 한 페이지에 보여질 아이템 수
   const [boardCount, setBoardCount] = useState([]); //게시글수 표시
   const navigate = useNavigate();
   // 검색기능
+  const [searchOption, setSearchOption] = useState("title");
   const [keyword, setKeyword] = useState('');
   const [searchedBoards, setSearchedBoards] = useState([]);
+
+
 
   // 검색 버튼을 클릭할 때 호출되는 함수
   const handleSearch = () => {
@@ -25,6 +28,10 @@ const ListBoardComponent = () => {
         console.error('Error while searching boards:', error);
       });
   };
+
+  const handleOptionChange = (e) => {
+    setSearchOption(e.target.value);
+  }
 
   useEffect(() => {
     fetchBoards();
@@ -52,18 +59,18 @@ const ListBoardComponent = () => {
     navigate('/create-board/');
   };
 
-  const handleBoardChange = (e) => {
-    setSearchedBoards(e.target.value);
-  }
-
   // 페이징 처리에 필요한 변수 계산
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = boards.slice(indexOfFirstItem, indexOfLastItem);
+  const currentSearchItems = searchedBoards.slice(indexOfFirstItem, indexOfLastItem)
 
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (pageNumber >= 1 && pageNumber <= Math.ceil(boards.length / itemsPerPage)) {
+      setCurrentPage(pageNumber);
+    }
   };
+
 
   //날짜 분까지만 출력
   const formatDateTime = (dateTimeString) => {
@@ -83,18 +90,18 @@ const ListBoardComponent = () => {
 
   return (
     <div className="container" style={{ height: "auto", marginTop: "80px" }}>
-      <div class="image-container">
+      <div className="image-container">
         <div className="rounded1">게시판</div>
       </div>
       <div>
         <h2 style={{ margin: 35, fontWeight: "bold" }}>자유 게시판</h2>
       </div>
-      <div class="search_group">
-        <select class="custom_select" value={searchedBoards} onChange={handleBoardChange} required>
+      <div className="search_group">
+        <select className="custom_select" value={searchOption} onChange={handleOptionChange} required>
           <option value="title" >제목</option>
           <option value="content">내용</option>
         </select>
-        <div class="search_content">
+        <div className="search_content">
           <input type="text" placeholder="검색어 입력" value={keyword} onChange={(e) => setKeyword(e.target.value)}></input>
           <button onClick={handleSearch} className="search_image"></button>
         </div>
@@ -110,17 +117,17 @@ const ListBoardComponent = () => {
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
-              <th>갱신일</th>
+              <th>수정일</th>
               <th>조회수</th>
             </tr>
           </thead>
           {searchedBoards.length > 0 ? (
             <tbody>
-              {searchedBoards.map((board, index) => (
+              {currentSearchItems.map((board, index) => (
                 <tr key={board.board_id}>
                   <td>{index + 1 + indexOfFirstItem}</td>
                   <td>
-                    <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
+                    <Link to={`/read-board/${board.board_id}`} className="noticeLink">{board.title}</Link>
                   </td>
                   <td>{board.author && board.author.name}</td>
                   <td>{formatDateTime(board.createTime)}</td>
@@ -135,7 +142,7 @@ const ListBoardComponent = () => {
                 <tr key={board.board_id}>
                   <td>{index + 1 + indexOfFirstItem}</td>
                   <td>
-                    <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
+                    <Link to={`/read-board/${board.board_id}`} className="noticeLink">{board.title}</Link>
                   </td>
                   <td>{board.author && board.author.name}</td>
                   <td>{formatDateTime(board.createTime)}</td>
@@ -146,27 +153,82 @@ const ListBoardComponent = () => {
             </tbody>
           )}
         </table>
-        <div style={{ marginTop: "10px", display: "flex", justifyContent: "space-between" }}>
-          {/* Pagination */}
-          <ul className="pagination">
-            {Array.from({ length: Math.ceil(boards.length / itemsPerPage) }).map(
-              (item, index) => (
-                <li
-                  className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}
-                  key={index}
-                >
-                  <button className="page-link" onClick={() => paginate(index + 1)}>
-                    {index + 1}
-                  </button>
-                </li>
-              )
-            )}
-          </ul>
 
-          {/* Button */}
-          <div className="button_box">
-            <button className="content_button" onClick={createBoard}>글쓰기</button>
+        {searchedBoards.length > 0 ? (
+          <div className="pagination">
+            <button
+              className="page-link"
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              이전
+            </button>
+            <ul className="pagination">
+              {Array.from({ length: Math.ceil(searchedBoards.length / itemsPerPage) }).map(
+                (item, index) => (
+                  <li
+                    className={`page-item ${index + 1 === currentPage ? "active" : ""
+                      }`}
+                    key={index}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => paginate(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
+            <button
+              className="page-link"
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === Math.ceil(searchedBoards.length / itemsPerPage)}
+            >
+              다음
+            </button>
           </div>
+        ) : (
+          <div className="pagination">
+            <button
+              className="page-link"
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              이전
+            </button>
+            <ul className="pagination">
+              {Array.from({ length: Math.ceil(boards.length / itemsPerPage) }).map(
+                (item, index) => (
+                  <li
+                    className={`page-item ${index + 1 === currentPage ? "active" : ""
+                      }`}
+                    key={index}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => paginate(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
+            <button
+              className="page-link"
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === Math.ceil(boards.length / itemsPerPage)}
+            >
+              다음
+            </button>
+          </div>
+        )}
+
+        {/* Button */}
+        <div className="button_box">
+          <button className="content_button" onClick={createBoard}>글쓰기</button>
         </div>
 
 

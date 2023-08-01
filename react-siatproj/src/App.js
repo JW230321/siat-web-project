@@ -21,6 +21,7 @@ import Notice from "./notice_components/Notice";
 import InsertNotice from "./notice_components/InsertNotice";
 import DetailNotice from "./notice_components/DetailNotice";
 import ModifyNotice from "./notice_components/ModifyNotice";
+import Zoom from "./components/Zoom";
 
 function App() {
   // 로그인 상태를 로컬 스토리지에서 가져와서 초기 상태 설정
@@ -46,6 +47,7 @@ function App() {
   return (
     <div>
       <Header isLoggedIn = {isLoggedIn} setIsLoggedIn = {setIsLoggedIn} handleLogout = {handleLogout} />
+      <Zoom />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/board" element={<ListBoardComponent />} />
