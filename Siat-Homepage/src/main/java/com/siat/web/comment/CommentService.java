@@ -33,6 +33,7 @@ public class CommentService {
 
         // 댓글과 게시물을 연결합니다.
         comment.setBoard(board);
+        comment.setCreateDate(LocalDateTime.now());
 
         // 댓글을 저장하고 반환합니다.
         return commentRepository.save(comment);

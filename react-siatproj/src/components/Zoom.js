@@ -15,13 +15,13 @@ function Zoom() {
   }, [zoomLevel]);
 
   const handleZoomIn = () => {
-    setZoomLevel((prevZoom) => prevZoom + 170);
+    setZoomLevel((prevZoom) => prevZoom + 110);
     setFontSize("15px")
     setIsZoom("true")
   };
 
   const handleZoomOut = () => {
-    setZoomLevel((prevZoom) => prevZoom - 170);
+    setZoomLevel((prevZoom) => prevZoom - 110);
     setFontSize("40px")
     setIsZoom("false")
   };

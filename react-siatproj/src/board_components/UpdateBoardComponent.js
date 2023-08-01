@@ -10,7 +10,7 @@ const UpdateBoardComponent = () => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  
+
   useEffect(() => {
     BoardService.getOneBoard(board_id).then((res) => {
       const data = res.data;
@@ -47,47 +47,39 @@ const UpdateBoardComponent = () => {
 
   return (
     <div>
-      <div className="container" style={{height : "60vh", marginTop : "80px"}}>
-        <div className="row">
-          <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">글을 수정해주세요</h3>
-            <div className="card-body">
-              <form>
-                <div className="form-group">
-                  <label> Title </label>
-                  <input
-                    type="text"
-                    placeholder="title"
-                    name="title"
-                    className="form-control"
-                    defaultValue={board.title}
-                    onChange={changeTitleHandler}
-                  />
-                </div>
-                <div className="form-group">
-                  <label> Content </label>
-                  <textarea
-                    placeholder="contents"
-                    name="content"
-                    className="form-control"
-                    defaultValue={board.content}
-                    onChange={changeContentsHandler}
-                  />
-                </div>
-                <button className="btn btn-success" onClick={updateBoard}>
-                  Modify
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={cancel}
-                  style={{ marginLeft: "10px" }}
-                >
-                  Cancel
-                </button>
-              </form>
-            </div>
-          </div>
+      <div className="container" style={{ height: "auto", marginTop: "80px" }}>
+        <div className="image-container">
+          <div className="rounded1">게시판</div>
         </div>
+        <div>
+          <h2 style={{ margin: 35, fontWeight: "bold" }}>자유 게시판</h2>
+        </div>
+        <form>
+          <div className="form-group" style={{ marginBottom: 15 }}>
+            <input
+              type="text"
+              placeholder="title"
+              name="title"
+              className="form-control"
+              defaultValue={board.title}
+              onChange={changeTitleHandler} />
+          </div>
+          <div className="form-group">
+            <textarea
+              placeholder="contents"
+              name="content"
+              className="form-control"
+              rows="20"
+              style={{ resize: "none" }}
+              defaultValue={board.content}
+              onChange={changeContentsHandler}
+            />
+          </div>
+          <div className="button_box">
+            <button className="content_button" style={{ marginLeft: "10px" }} onClick={cancel}>취소</button>
+            <button className="content_button" onClick={updateBoard}>쓰기</button>
+          </div>
+        </form>
       </div>
     </div>
   );
