@@ -3,8 +3,6 @@ package com.siat.web.comment;
 import com.siat.web.board.Board;
 import com.siat.web.board.BoardRepository;
 import com.siat.web.board.ResourceNotFoundException;
-import com.siat.web.member.Member;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,23 +18,18 @@ public class CommentService {
 
     @Autowired
     private BoardRepository boardRepository;
-
+    
     // 모든 댓글 조회
     public List<Comment> getAllComments() {
         return commentRepository.findAll();
     }
 
-    // 게시글에 대한 댓글 조회
-//    public List<Comment> getCommentsByBoardId(Long board_id) {
-//        Board board = boardRepository.findById(board_id).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + board_id + "]"));
-//        return board.getCommentList();
-//    }
 
 
     // 댓글 추가
-    public Comment commentSave(Long id, Comment comment) {
+    public Comment commentSave(Long boardId, Comment comment) {
         // 먼저 해당 게시물을 찾습니다.
-        Board board = boardRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + id + "]"));
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + boardId + "]"));
 
         // 댓글과 게시물을 연결합니다.
         comment.setBoard(board);

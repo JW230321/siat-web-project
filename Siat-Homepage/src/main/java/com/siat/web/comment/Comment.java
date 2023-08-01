@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.siat.web.board.Board;
+import com.siat.web.member.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +31,11 @@ public class Comment {
 	private LocalDateTime createDate;
 	
 	private LocalDateTime updateDate;
+	
+	
+	@ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member author;
 	
 	@JsonBackReference
 	@ManyToOne

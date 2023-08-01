@@ -1,9 +1,8 @@
 package com.siat.web.board;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.siat.web.comment.Comment;
 import com.siat.web.member.Member;
@@ -31,36 +30,35 @@ public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long board_id;
-	
+
 	private String title;
-	
+
 	@Column(columnDefinition = "TEXT")
 	private String content;
-	
+
 	private LocalDateTime createTime;
-	
 	private LocalDateTime updateTime;
-	
-	private Integer count;
-	
+	@Column(columnDefinition = "integer default 0", nullable = false)
+	private int count;
+
+
 	@PrePersist
 	public void onCreate() {
 		createTime = LocalDateTime.now();
 	}
-	
+
 	@PreUpdate
 	public void onUpdate() {
 		updateTime = LocalDateTime.now();
 	}
-	
+
 	@ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member author;
-	
+	@JoinColumn(name = "member_id")
+	private Member author;
+
 	@JsonManagedReference
-	@OneToMany(mappedBy = "board" , fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@OrderBy("id asc") // 댓글 정렬
 	private List<Comment> comments;
-	
-	
+
 }

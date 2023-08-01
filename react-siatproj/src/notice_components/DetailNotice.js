@@ -18,12 +18,24 @@ function DetailNotice() {
   const Notice = () => {
     navigate('/noticeList')
   }
+
+  //날짜 분까지만 출력
+  const formatDateTime = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+    const year = dateTime.getFullYear();
+    const month = String(dateTime.getMonth() + 1).padStart(2, '0');
+    const date = String(dateTime.getDate()).padStart(2, '0');
+    const hours = String(dateTime.getHours()).padStart(2, '0');
+    const minutes = String(dateTime.getMinutes()).padStart(2, '0');
+  
+    return `${year}. ${month}. ${date}. ${hours}:${minutes}`;
+  };
   
 
   return (
     <div className="container" style={{ height: "auto", marginTop: "80px" }}>
       <div class="image_container">
-        <div className="rounded">커뮤니티</div>
+        <div className="rounded1">커뮤니티</div>
       </div>
       <div>
         <h2 style={{ margin: 35, fontWeight: "bold" }}>공지 사항</h2>
@@ -33,7 +45,7 @@ function DetailNotice() {
           <tr className="content_tr">
             <th colSpan="2" className="content_head">
               <span style={{fontSize: "30px", margin:"10px 0" }}>{getAllNotice.title}</span>
-              <span style={{ color: "#999999"}}>{new Date(getAllNotice.createTime).toLocaleDateString()}</span>
+              <span style={{ color: "#999999"}}>{formatDateTime(getAllNotice.createTime)}</span>
             </th>
             <th className="content_count">조회수 {getAllNotice.count}</th>
           </tr>
