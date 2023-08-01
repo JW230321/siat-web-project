@@ -59,10 +59,6 @@ const ListBoardComponent = () => {
     navigate('/create-board/');
   };
 
-  const handleBoardChange = (e) => {
-    setSearchedBoards(e.target.value);
-  }
-
   // 페이징 처리에 필요한 변수 계산
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -121,7 +117,7 @@ const ListBoardComponent = () => {
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
-              <th>갱신일</th>
+              <th>수정일</th>
               <th>조회수</th>
             </tr>
           </thead>
@@ -131,7 +127,7 @@ const ListBoardComponent = () => {
                 <tr key={board.board_id}>
                   <td>{index + 1 + indexOfFirstItem}</td>
                   <td>
-                    <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
+                    <Link to={`/read-board/${board.board_id}`} className="noticeLink">{board.title}</Link>
                   </td>
                   <td>{board.author && board.author.name}</td>
                   <td>{formatDateTime(board.createTime)}</td>
@@ -146,7 +142,7 @@ const ListBoardComponent = () => {
                 <tr key={board.board_id}>
                   <td>{index + 1 + indexOfFirstItem}</td>
                   <td>
-                    <Link to={`/read-board/${board.board_id}`} >{board.title}</Link>
+                    <Link to={`/read-board/${board.board_id}`} className="noticeLink">{board.title}</Link>
                   </td>
                   <td>{board.author && board.author.name}</td>
                   <td>{formatDateTime(board.createTime)}</td>

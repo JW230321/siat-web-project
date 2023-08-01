@@ -1,6 +1,7 @@
 import HomeBanner from "./HomeBanner";
-import '../css/home.css'
+import '../css/home.css';
 function Home() {
+    
     return (
         <>
             {/* 이미지 화면 */}
@@ -8,7 +9,7 @@ function Home() {
             <HomeBanner />
 
             {/* 게시판 목록 */}
-            <div className="container text-center" style={{marginTop: 40}}>
+            <div className="container text-center" style={{ marginTop: 40 }}>
                 <div className="row">
                     <div className="left_box">
                         <div className="tit">
@@ -58,7 +59,7 @@ function Home() {
                         </li>
                     </div>
                     <div className="center_box">
-                    <div className="tit">
+                        <div className="tit">
                             <h4>공지 사항</h4>
                             <a href="#"><img src="https://www.sist.co.kr/img/main_con02_plus.png" alt="icon" /></a>
                         </div>
@@ -105,7 +106,7 @@ function Home() {
                         </li>
                     </div>
                     <div className="right_box">
-                    <div className="tit">
+                        <div className="tit">
                             <h4>공지 사항</h4>
                             <a href="#"><img src="https://www.sist.co.kr/img/main_con02_plus.png" alt="icon" /></a>
                         </div>

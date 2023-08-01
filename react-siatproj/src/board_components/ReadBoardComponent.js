@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BoardService from "../board_service/BoardService";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import '../css/readBoard.css'
 
 const ReadBoardComponent = () => {
   const [findByMember, setFindByMember] = useState({});
@@ -10,10 +11,11 @@ const ReadBoardComponent = () => {
   const [board, setBoard] = useState({});
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [commentsCount, setCommentsCount] = useState([]);
 
   useEffect(() => {
     setFindByMember(JSON.parse(localStorage.getItem("MemberData")))
-    console.log("member===>"+JSON.stringify(findByMember))
+    console.log("member===>" + JSON.stringify(findByMember))
   }, [])
 
   useEffect(() => {
@@ -21,17 +23,26 @@ const ReadBoardComponent = () => {
       //console.log("====>" + JSON.stringify(res.data))
       setBoard(res.data);
       setComments(res.data.comments);
+      setCommentsCount(res.data.comments.length);
     });
 
   }, [board_id]);
 
-  const returnDate = (cTime, uTime) => {
+  //글 작성시간
+  const returnDate1 = (cTime) => {
     return (
-      <div className="row">
         <label>
-          생성일 : [ {cTime} ] / 최종 수정일 : [ {uTime} ]
+          {formatDateTime(cTime)}
         </label>
-      </div>
+    );
+  };
+
+  //글 수정시간
+  const returnDate2 = (uTime) => {
+    return (
+        <label>
+          <span>{formatDateTime(uTime)} <span style={{ fontSize: "13px"}}>수정</span></span>
+        </label>
     );
   };
 
@@ -49,7 +60,7 @@ const ReadBoardComponent = () => {
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
-  console.log(board.author ? board.author: "작성자 정보 없음")
+  console.log(board.author ? board.author : "작성자 정보 없음")
   const addComment = (event) => {
     event.preventDefault();
     // 댓글 정보를 객체로 생성
@@ -60,12 +71,12 @@ const ReadBoardComponent = () => {
       board: board, // 해당 댓글이 속한 게시물 정보
       author: findByMember
     };
-    
+
 
     // CommentService를 이용하여 서버로 댓글 정보를 전송
     BoardService.createComment(newComment, board_id)
       .then((res) => {
-        
+
         console.log("댓글 추가 성공:", JSON.stringify(res.data));
         // 새로운 댓글 목록을 가져와서 업데이트
         BoardService.getOneBoard(board_id)
@@ -85,64 +96,114 @@ const ReadBoardComponent = () => {
     setComment("");
   };
 
+  //날짜 분까지만 출력
+  const formatDateTime = (dateTimeString) => {
+    if (!dateTimeString) {
+      return ''; // 처음에 글작성시 수정시간이 필요없으므로 출력되지 않는다
+    }
+    const dateTime = new Date(dateTimeString);
+    const year = dateTime.getFullYear();
+    const month = String(dateTime.getMonth() + 1).padStart(2, '0');
+    const date = String(dateTime.getDate()).padStart(2, '0');
+    const hours = String(dateTime.getHours()).padStart(2, '0');
+    const minutes = String(dateTime.getMinutes()).padStart(2, '0');
+
+    return `${year}. ${month}. ${date}. ${hours}:${minutes}`;
+  };
+
   return (
-    <div style={{ height: "60vh", marginTop: "80px" }}>
-      <div className="card col-md-6 offset-md-3" >
-        <h3 className="text-center"> 내용 보기 </h3>
-        <div className="row">
-          <label> 작성자 </label>: {board.author ? board.author.name : "작성자 정보 없음"}
+    <div style={{ height: "auto", marginTop: "80px" }}>
+      <div className="container" style={{ height: "auto", marginTop: "80px" }}>
+        <div className="image-container">
+          <div className="rounded1">게시판</div>
         </div>
-        <div className="row">
-          <label> Title </label>: {board.title}
+        <div>
+          <h2 style={{ margin: 35, fontWeight: "bold" }}>자유 게시판</h2>
         </div>
-        <div className="row">
-          <label> Contents </label>: <br />
-          <textarea value={board.content} readOnly />
+
+        <table className="content">
+          <thead>
+            <tr className="content_tr">
+              <th colSpan="3" className="content_head">
+                <span style={{ fontSize: "30px", margin: "10px 0" }}>
+                  {board.title}
+                </span>
+                {board.updateTime ? (
+                  <span style={{ color: "#999999" }}>
+                  {board.author ? board.author.name : "작성자 정보 없음"} | {returnDate2(board.updateTime)}
+                </span>
+                ) : (
+                  <span style={{ color: "#999999" }}>
+                    {board.author ? board.author.name : "작성자 정보 없음"} | {returnDate1(board.createTime)}</span>
+                )}
+              </th>
+              <th className="content_count">조회수 {board.count}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan="3"><pre className="content_body">{board.content}</pre></td>
+            </tr>
+          </tbody>
+        </table>
+        {/*       ================================================================= */}
+        <div>
+          <div style={{marginBlock: "20px"}}>
+            <span style={{ marginRight: "10px" }}>댓글</span>
+            <span style={{ fontSize: "13px", color: "#999999"}}>총 <span>{commentsCount}</span>건</span>
+          </div>
+          <div className="comment_zone">
+            {
+              comments.map((comment, index) => (
+                <div key={index}>
+                  <p style={{ marginBottom: "10px" }}>
+                    {comment.author ? (
+                      <>
+                        <span style={{ fontSize: "16px", fontWeight: "bold" }}>{comment.author.name}</span>
+                        {board.author && comment.author.name === board.author.name && (
+                          <span style={{ fontSize: "12px", color: "#999999", marginLeft: "5px" }}>
+                            작성자
+                          </span>
+                        )}
+                      </>
+                    ) : (
+                      <span>작성자 정보 없음</span>
+                    )}
+                  </p>
+                  <p style={{ marginBottom: "1px" }}>{comment.content}</p>
+                  <p style={{ fontSize: "12px", color: "#999999" }}>{formatDateTime(board.createTime)}</p>
+                </div>
+              ))
+            }
+          </div>
         </div>
-        {returnDate(board.createTime, board.updateTime)}
-        <button
-          className="btn btn-primary"
-          onClick={goToList}
-          style={{ marginLeft: "10px" }}
-        >
-          글 목록으로 이동
-        </button>
-        <Link
-          className="btn btn-info"
-          style={{ marginLeft: "10px" }}
-          to={`/create-board/${board.board_id}`}
-        >
-          수정하기
-        </Link>
-        <button
-          className="btn btn-danger"
-          onClick={deleteBoard}
-          style={{ marginLeft: "10px" }}
-        >
-          삭제
-        </button>
-        <div className="mt-4">
-          <h5>댓글 작성</h5>
-          <form onSubmit={addComment}>
+        <div className="form-group">
+          <form onSubmit={addComment} style={{ position: "relative" }}>
             <textarea
+              className="form-control"
               value={comment}
               onChange={handleCommentChange}
+              style={{ resize: "none", minHeight: "100px" }}
               placeholder="댓글을 입력하세요."
             />
-            <button type="submit" className="btn btn-primary mt-2">
-              작성
+            <button
+              type="submit"
+              className="btn btn-primary mt-2"
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                right: "10px"
+              }}
+            >
+              등록
             </button>
           </form>
         </div>
-        <div>
-          <h5>댓글</h5>
-          {
-            comments.map((a, i) => {
-              return (
-               <div key={i}>{comments[i].author && comments[i].author.name}:{comments[i].content}</div>
-              )
-            })
-          }
+
+        <div className="button_box">
+          <button className="content_button" onClick={goToList}>목록</button>
+          <Link className="content_button" to={`/create-board/${board.board_id}`} >수정</Link>
+          <button className="content_button" onClick={deleteBoard}>삭제</button>
         </div>
       </div>
     </div>
