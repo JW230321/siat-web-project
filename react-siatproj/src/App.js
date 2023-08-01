@@ -24,6 +24,9 @@ import ModifyNotice from "./notice_components/ModifyNotice";
 import Zoom from "./components/Zoom";
 
 function App() {
+
+  const [zoomLevel, setZoomLevel] = useState(100);
+
   // 로그인 상태를 로컬 스토리지에서 가져와서 초기 상태 설정
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("isLoggedIn") === "true"
@@ -47,7 +50,7 @@ function App() {
   return (
     <div>
       <Header isLoggedIn = {isLoggedIn} setIsLoggedIn = {setIsLoggedIn} handleLogout = {handleLogout} />
-      <Zoom />
+      <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/board" element={<ListBoardComponent />} />
@@ -58,10 +61,10 @@ function App() {
         <Route path="/login" element={<Login handleLogin = {handleLogin}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/boardInput" element={<BoardInput />} />
-        <Route path="/process" element={<ProcessComponent />} />
+        <Route path="/process" element={<ProcessComponent zoomLevel={zoomLevel}/>} />
         <Route path="/employment" element={<EmploymentInput />} />
-        <Route path="/detail" element={<ProcessDetail />} />
-        <Route path="/detail2" element={<ProcessDetail2 />} />
+        <Route path="/detail" element={<ProcessDetail zoomLevel={zoomLevel} />} />
+        <Route path="/detail2" element={<ProcessDetail2 zoomLevel={zoomLevel} />} />
         <Route path="/input" element={<ProcessInput />} />
         <Route path="/input2" element={<ProcessInput2 />} />
         <Route path="/noticeList" element={<Notice />} />

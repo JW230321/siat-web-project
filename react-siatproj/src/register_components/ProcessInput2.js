@@ -76,7 +76,7 @@ function ProcessInput() {
     }
 
     return (
-        <div className="container" style={{ height: "480vh", marginTop: "100px" }}>
+        <div className="container" style={{ height: "530vh", marginTop: "100px" }}>
             <div style={{ borderRadius: 10, padding: 20, marginTop: 20, height: 4350 }}>
                 <form className="form-inline" method="post" action="/input">
                     <h4>개인 정보</h4>
@@ -200,7 +200,7 @@ function ProcessInput() {
                         <tbody>
                             <tr>
                                 <th>
-                                    <label htmlFor="grade" className="mr-sm-2 ">최종학교명</label>
+                                    <label htmlFor="grade" className="mr-sm-2 ">최종<br />학교명</label>
                                 </th>
                                 <td colSpan="7">
                                     <input type="text" className="form-control mb-2 mr-sm-2" placeholder="최종학교명을 입력하세요." id="grade" name='grade' />
