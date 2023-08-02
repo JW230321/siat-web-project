@@ -200,7 +200,7 @@ function ProcessInput() {
                         <tbody>
                             <tr>
                                 <th>
-                                    <label htmlFor="grade" className="mr-sm-2 ">최종학교명</label>
+                                    <label htmlFor="grade" className="mr-sm-2 ">최종<br />학교명</label>
                                 </th>
                                 <td colSpan="7">
                                     <input type="text" className="form-control mb-2 mr-sm-2" placeholder="최종학교명을 입력하세요." id="grade" name='grade' />

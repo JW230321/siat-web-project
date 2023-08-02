@@ -88,6 +88,42 @@
 }
 
 
+.mainLogo {
+  width: 200px;
+  height: 70px;
+  position: relative;
+  cursor: pointer;
+}
+
+.mainLogo2{
+  background: url(/src/image/siatLogo.png);
+  width: 200px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.mainLogo::before {
+  content: "";
+  background: url(/src/image/siatLogo.png);
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* This will allow clicks to pass through the pseudo-element */
+}
+
+.mainLogo a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 
 
 

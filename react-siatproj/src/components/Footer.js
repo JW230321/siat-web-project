@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+
 function Footer() {
     return (
         <footer id="footer">
@@ -16,9 +19,9 @@ function Footer() {
                             <ul>
                                 <li><i className="bx bx-chevron-right"></i> <a href="#">조직안내도</a></li>
                                 <li><i className="bx bx-chevron-right"></i> <a href="#">연혁</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">장애인관련법</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">찾아오는 길</a></li>
-                                <li><i className="bx bx-chevron-right"></i> <a href="#">워크투게더</a></li>
+                                <li><i className="bx bx-chevron-right"></i> <a target="_blank " href="https://www.law.go.kr/LSW//lsSc.do?section=&menuId=1&subMenuId=15&tabMenuId=81&eventGubun=060101&query=%EC%9E%A5%EC%95%A0%EC%9D%B8">장애인관련법</a></li>
+                                <li><i className="bx bx-chevron-right"></i> <Link to="/road">찾아오는 길</Link></li>
+                                <li><i className="bx bx-chevron-right"></i> <a target="_blank" href="https://www.worktogether.or.kr/main.do">워크투게더</a></li>
                             </ul>
                         </div>
                         <div className="col-lg-4 col-md-6 footer-newsletter">
@@ -43,8 +46,8 @@ function Footer() {
                         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                     </div>
                 </div>
-                <div>
-                    <h3>Logo</h3>
+                <div className="mainLogo2">
+                    <h3></h3>
                 </div>
                 <div className="social-links text-center text-md-right pt-3 pt-md-0">
                     <a href="#" className="twitter"><i className="bx bxl-twitter"></i></a>
