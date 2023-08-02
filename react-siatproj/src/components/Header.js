@@ -28,9 +28,9 @@ function Header({ isLoggedIn, setIsLoggedIn, handleLogout }) {
                             <ul>
                                 <li><a href="#">조직안내도</a></li>
                                 <li><a href="#">연혁</a></li>
-                                <li><a href="#">장애인관련법</a></li>
-                                <li><a href="#">찾아오는 길</a></li>
-                                <li><a href="#">워크투게더</a></li>
+                                <li><a target="_blank " href="https://www.law.go.kr/LSW//lsSc.do?section=&menuId=1&subMenuId=15&tabMenuId=81&eventGubun=060101&query=%EC%9E%A5%EC%95%A0%EC%9D%B8">장애인관련법</a></li>
+                                <li><Link to="/road">찾아오는 길</Link></li>
+                                <li><a target="_blank" href="https://www.worktogether.or.kr/main.do">워크투게더</a></li>
                                 <li><Link to="/process">교육과정</Link></li>
                             </ul>
                         </li>

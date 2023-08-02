@@ -1,5 +1,5 @@
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
@@ -22,10 +22,12 @@ import InsertNotice from "./notice_components/InsertNotice";
 import DetailNotice from "./notice_components/DetailNotice";
 import ModifyNotice from "./notice_components/ModifyNotice";
 import Zoom from "./components/Zoom";
+import Road from "./components/Road";
 
 function App() {
 
   const [zoomLevel, setZoomLevel] = useState(100);
+  const location = useLocation();
 
   // 로그인 상태를 로컬 스토리지에서 가져와서 초기 상태 설정
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -45,7 +47,9 @@ function App() {
     localStorage.removeItem("MemberData");
   };
 
-  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth"});
+  }, [location]);
 
   return (
     <div>
@@ -53,6 +57,7 @@ function App() {
       <Zoom zoomLevel={zoomLevel} setZoomLevel={setZoomLevel}/>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/road" element={<Road zoomLevel={zoomLevel} />} />
         <Route path="/board" element={<ListBoardComponent />} />
         {/* <Route path="/board1" element={<Board1 />} /> */}
         <Route path = "/read-board/:board_id" element = {<ReadBoardComponent />}></Route>
