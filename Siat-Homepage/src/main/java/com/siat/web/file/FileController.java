@@ -14,33 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 @RestController
 public class FileController {
 	
 	@Autowired
 	private FileService fileService;
 	
-	@PostMapping("/upload")
-	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-		fileService.uploadFile(file);
-		return new ResponseEntity<>("", HttpStatus.OK);
-	}
-	
-	@GetMapping("/images")
-    public List<UploadFile> getImageFiles() {
-        return fileService.getImageFiles();
-    }
-	
-	@GetMapping("/files")
-	public List<UploadFile> getFileList() {
-		return fileService.getFileList();
-	}
-	
-	
 	@GetMapping("/download")
-	public ResponseEntity<Resource> downloadFile(@RequestParam("file_id") Long file_id) throws IOException {
-		ResponseEntity<Resource> file = fileService.downloadFile(file_id);
+	public ResponseEntity<Resource> downloadFile(@RequestParam("uploadfile_id") Long uploadfile_id) throws IOException {
+		ResponseEntity<Resource> file = fileService.downloadFile(uploadfile_id);
 		
 		return file;
 	}

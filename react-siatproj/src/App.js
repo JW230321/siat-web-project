@@ -5,7 +5,6 @@ import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import BoardInput from "./components/BoardInput";
 import ProcessComponent from "./register_components/ProcessComponent";
 import ProcessDetail from "./register_components/ProcessDetail";
 import ProcessDetail2 from "./register_components/ProcessDetail2"
@@ -65,7 +64,6 @@ function App() {
         <Route path = "/create-board/:board_id" element = {<UpdateBoardComponent />}></Route>
         <Route path="/login" element={<Login handleLogin = {handleLogin}/>} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/boardInput" element={<BoardInput />} />
         <Route path="/process" element={<ProcessComponent zoomLevel={zoomLevel}/>} />
         <Route path="/employment" element={<EmploymentInput />} />
         <Route path="/detail" element={<ProcessDetail zoomLevel={zoomLevel} />} />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import BoardService from "../board_service/BoardService";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import '../css/readBoard.css'
+import FileService from "../file_service/FileService";
 
 const ReadBoardComponent = () => {
   const [findByMember, setFindByMember] = useState({});
@@ -118,6 +119,25 @@ const ReadBoardComponent = () => {
     return `${year}. ${month}. ${date}. ${hours}:${minutes}`;
   };
 
+  const uuidPattern = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
+
+  const download = (uploadfile_id, fileName) => {
+    FileService.downloadFile(uploadfile_id, {responseType: "blob"}).then(res => {
+        console.log("success!" + res);
+
+        const blob = new Blob([res.data], {
+            type: res.headers["Content-Type"]
+        });
+
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = fileName;
+          link.click();
+
+          URL.revokeObjectURL(link.href);
+    })
+}
+
   return (
     <div style={{ height: "auto", marginTop: "80px" }}>
       <div className="container" style={{ height: "auto", marginTop: "80px" }}>
@@ -160,11 +180,18 @@ const ReadBoardComponent = () => {
         </table>
         {
           imageFiles.length > 0 &&  // imageFiles 배열의 길이가 0보다 큰 경우에만 아래 코드 실행
-          imageFiles.map((file, index) => (
-            isImageFile(file.originName) && (
-              <img key={index} src={`/img/${file.originName}`} alt={file.originName} />
+          imageFiles.map((file, index) => {
+            const fileNameWithoutUUID = file.originName.replace(uuidPattern, "");
+            return (
+              isImageFile(file.originName) ? (
+                <img key={index} src={`/img/${file.originName}`} alt={file.originName} />
+              ) : (
+                <p key={index}>
+                  <a href="#" onClick={() => {download(file.uploadfile_id, file.originName)}}>{fileNameWithoutUUID}</a>
+                </p>
+              )
             )
-          ))
+              })
         }
 
         {/*       ================================================================= */}

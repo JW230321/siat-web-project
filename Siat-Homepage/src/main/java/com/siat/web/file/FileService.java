@@ -103,34 +103,8 @@ public class FileService {
 		return Paths.get(uploadPath).resolve(fileName);
 	}
 
-//	public ResponseEntity<Resource> downloadFile(String fileName) {
-//		try {
-//
-//			Path file = load(fileName);
-//			Resource resource = new UrlResource(file.toUri());
-//			
-//			if(resource != null && resource.exists() && resource.isReadable()) {
-//				String encodedFileName = UriUtils.encode(fileName, StandardCharsets.UTF_8);
-//				HttpHeaders headers = new HttpHeaders();
-//				headers.setContentDispositionFormData("attachment", encodedFileName);
-//				
-//				return ResponseEntity.ok().headers(headers).body(resource);
-//			} else {
-//				System.out.println(fileName + "파일을 읽을 수 없습니다.");
-//			}
-//			
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-
-	public List<UploadFile> getFileList() {
-		return fileRepo.findAll();
-	}
-
-	public ResponseEntity<Resource> downloadFile(Long file_id) throws IOException {
-		UploadFile uploadFile = fileRepo.findById(file_id).orElse(null);
+	public ResponseEntity<Resource> downloadFile(Long uploadfile_id) throws IOException {
+		UploadFile uploadFile = fileRepo.findById(uploadfile_id).orElse(null);
 		Path file = Paths.get(uploadFile.getStoredName());
 		try {
 			Resource resource = new UrlResource(file.toUri());
