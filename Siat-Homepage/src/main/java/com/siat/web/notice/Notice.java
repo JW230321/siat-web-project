@@ -24,7 +24,7 @@ public class Notice {
 	private Long notice_id;
 	private String title;
 	private String content;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
 	private Date createTime = new Date();
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private int count;

@@ -9,13 +9,32 @@ class BoardService {
         return axios.get(BOARD_API_BASE_URL);
     }
 
-    // writeBoard(board) {
-    //     return axios.post(BOARD_API_BASE_URL, board);
-    // }
 
-    writeBoard(board, memberId) {
-        return axios.post(`${BOARD_API_BASE_URL}?memberId=${memberId}`, board);
+    writeDefaltBoard(board, memberId) {
+        return axios.post(`${BOARD_API_BASE_URL}/defalut?memberId=${memberId}`, board);
     }
+
+    writeBoard(board, files, memberId) {
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        };
+        const url = `${BOARD_API_BASE_URL}?memberId=${memberId}`;
+        const data = new FormData();
+        data.append("board", JSON.stringify(board));
+    
+        // 각 파일들을 별도의 파라미터로 추가
+        for (let i = 0; i < files.length; i++) {
+            data.append("files", files[i]);
+        }
+    
+        return axios.post(url, data, config);
+    }
+    
+
+
+
 
     getOneBoard(board_id) {
         return axios.get(BOARD_API_BASE_URL + "/" + board_id);

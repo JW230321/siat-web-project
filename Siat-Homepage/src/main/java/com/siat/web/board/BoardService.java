@@ -6,7 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.siat.web.file.FileRepository;
+import com.siat.web.file.FileService;
+import com.siat.web.file.UploadFile;
 import com.siat.web.member.Member;
 import com.siat.web.member.MemberRepository;
 
@@ -26,7 +30,13 @@ public class BoardService {
 	
 	@Autowired
 	private MemberRepository memberRepository;
+	
+	@Autowired
+	private FileRepository fileRepository;
 
+	@Autowired
+    private FileService fileService; 
+	
 	// get boards data
 	public List<Board> getAllBoard() {
 		return boardRepository.findAllByOrderByCreateTimeDesc();
@@ -41,15 +51,42 @@ public class BoardService {
 	}
 
 	// insert data into board
-	public Board createBoard(Board board, Long memberId) {
-		Member author = memberRepository.findById(memberId).orElse(null);
-		if (author != null) {
-            board.setAuthor(author); // 게시판에 작성자 정보를 설정
-            return boardRepository.save(board); // 게시판 저장
-        }
-		// memberId에 해당하는 회원이 존재하지 않을 경우 처리
-        return null;
+	public Board createBoard(Board board, Long memberId, List<MultipartFile> files) {
+	    Member author = memberRepository.findById(memberId).orElse(null);
+	    if (author != null) {
+	        board.setAuthor(author); // 게시판에 작성자 정보를 설정
+
+	        if (files != null && !files.isEmpty()) {
+	            for (MultipartFile file : files) {
+	                if (file != null && !file.isEmpty()) {
+	                    // 파일 업로드 및 저장된 파일 정보 가져오기
+	                    UploadFile uploadedFile = fileService.uploadFile(file);
+	                    // 파일 정보를 게시판(Board) 엔티티와 연결
+	                    uploadedFile.setBoard(board);
+	                    // 게시판(Board) 엔티티의 files 리스트에 업로드된 파일 추가
+	                    board.getFiles().add(uploadedFile);
+	                }
+	            }
+	        }
+
+	        return boardRepository.save(board); // 게시판 저장
+	    }
+	    // memberId에 해당하는 회원이 존재하지 않을 경우 처리
+	    return null;
 	}
+	
+		public Board createNoFileBoard(Board board, Long memberId) {
+		    Member author = memberRepository.findById(memberId).orElse(null);
+		    if (author != null) {
+		        board.setAuthor(author); // 게시판에 작성자 정보를 설정
+		        return boardRepository.save(board); // 게시판 저장
+		    }
+		    // memberId에 해당하는 회원이 존재하지 않을 경우 처리
+		    return null;
+		}
+	
+
+
 
 	// get one board by board_id
 	public ResponseEntity<Board> getBoard(Long board_id) {
