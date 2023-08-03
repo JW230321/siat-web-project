@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MemberService from "../services/MemberService";
+import MemberService from "../member_services/MemberService";
 
 
 function Signup() {

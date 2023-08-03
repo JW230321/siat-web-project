@@ -5,7 +5,7 @@ import '../css/Process.css';
 
 function ProcessDetail({zoomLevel}) {
     return (
-        <div className="container" style={{height : "850vh", marginTop : "100px"}}>
+        <div className="container" style={{height : "auto", marginTop : "100px"}}>
             <div className="image-container" style={{marginBottom: 50}}>
                 <div className="rounded1">경영사무지원 과정 소개</div>
             </div>

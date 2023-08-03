@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import '../css/home.css'
 
-function Zoom() {
-  const [zoomLevel, setZoomLevel] = useState(100);
+function Zoom({zoomLevel, setZoomLevel}) {
   const [fontSize, setFontSize] = useState(40)
   const [isZoom, setIsZoom] = useState("false");
   useEffect(() => {

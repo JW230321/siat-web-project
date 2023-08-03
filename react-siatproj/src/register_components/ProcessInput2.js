@@ -76,8 +76,8 @@ function ProcessInput() {
     }
 
     return (
-        <div className="container" style={{ height: "530vh", marginTop: "100px" }}>
-            <div style={{ borderRadius: 10, padding: 20, marginTop: 20, height: 4350 }}>
+        <div className="container" style={{ height: "auto", marginTop: "100px" }}>
+            <div style={{ borderRadius: 10, padding: 20, marginTop: 20 }}>
                 <form className="form-inline" method="post" action="/input">
                     <h4>개인 정보</h4>
                     <table className="table">

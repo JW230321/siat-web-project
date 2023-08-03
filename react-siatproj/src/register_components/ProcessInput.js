@@ -76,8 +76,8 @@ function ProcessInput() {
     }
 
     return (
-        <div className="container" style={{ height: "530vh", marginTop: "100px" }}>
-            <div style={{ borderRadius: 10, padding: 20, marginTop: 20, height: 4350 }}>
+        <div className="container" style={{ height: "auto", marginTop: "100px" }}>
+            <div style={{ borderRadius: 10, padding: 20, marginTop: 20 }}>
                 <form className="form-inline" method="post" action="/input">
                     <h4>개인 정보</h4>
                     <table className="table">
@@ -602,10 +602,10 @@ function ProcessInput() {
                     <br />
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         {created_date}<br />
-                        본인 성명 : {name} (서명 또는 인)
+                        지원자 성명 : {name} (서명)
                     </div>
+                    <button type="submit" className="btn btn-primary mb-2" onClick={register} style={{ float: 'right', width: 150, height: 50 }}>Submit</button>
                 </form>
-                <button type="submit" className="btn btn-primary mb-2" onClick={register} style={{ float: 'right', width: 150, height: 50 }}>Submit</button>
             </div>
         </div>
     );
