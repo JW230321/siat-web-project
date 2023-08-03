@@ -62,10 +62,9 @@ function Header({ isLoggedIn, setIsLoggedIn, handleLogout }) {
                     <ul>
                         <li className="dropdown"><a href="#"><span>스케줄</span> <i className="bi bi-chevron-down"></i></a>
                             <ul>
-                                <li><a href="#">#</a></li>
-                                <li><a href="#">#</a></li>
-                                <li><a href="#">#</a></li>
-                                <li><a href="#">#</a></li>
+                                <li><Link to="/calendar">SW개발 A반 스케줄</Link></li>
+                                <li><a href="#">SW개발 B반 스케줄</a></li>
+                                <li><a href="#">경영사무지원 스케줄</a></li>
                             </ul>
                         </li>
                     </ul>

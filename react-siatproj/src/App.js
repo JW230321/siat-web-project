@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import BoardInput from "./components/BoardInput";
 import ProcessComponent from "./register_components/ProcessComponent";
 import ProcessDetail from "./register_components/ProcessDetail";
 import ProcessDetail2 from "./register_components/ProcessDetail2"
@@ -22,6 +23,7 @@ import DetailNotice from "./notice_components/DetailNotice";
 import ModifyNotice from "./notice_components/ModifyNotice";
 import Zoom from "./components/Zoom";
 import Road from "./components/Road";
+import MyCalendar from "./components/MyCalendar";
 
 function App() {
 
@@ -64,6 +66,7 @@ function App() {
         <Route path = "/create-board/:board_id" element = {<UpdateBoardComponent />}></Route>
         <Route path="/login" element={<Login handleLogin = {handleLogin}/>} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/boardInput" element={<BoardInput />} />
         <Route path="/process" element={<ProcessComponent zoomLevel={zoomLevel}/>} />
         <Route path="/employment" element={<EmploymentInput />} />
         <Route path="/detail" element={<ProcessDetail zoomLevel={zoomLevel} />} />
@@ -74,6 +77,7 @@ function App() {
         <Route path="/insertNotice" element={<InsertNotice />} />
         <Route path="/detailNotice/:notice_id" element={<DetailNotice  />} />
         <Route path="/modifyNotice/:notice_id" element={<ModifyNotice />}/>
+        <Route path="/calendar" element={<MyCalendar />}/>
       </Routes>
       <Footer />
     </div>
