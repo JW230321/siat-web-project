@@ -96,9 +96,10 @@
 }
 
 .mainLogo2{
-  background: url(/src/image/siatLogo.png);
+  background: url(/src/image/siatLogo2.png);
   width: 200px;
   height: 150px;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }

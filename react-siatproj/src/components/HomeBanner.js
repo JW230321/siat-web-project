@@ -9,14 +9,18 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/effect-cube';
 import '../css/banner.css'
-
+import banner1 from '../home_img/banner1.jpg'
+import banner2 from '../home_img/banner3.jpg'
+import banner3 from '../home_img/banner4.jpg'
+import banner4 from '../home_img/banner2.jpg'
+import banner5 from '../home_img/banner5.jpg'
+import banner6 from '../home_img/banner6.jpg'
 function HomeBanner() {
 
-    const bogliasco = "https://i.imgur.com/Gu5Cznz.jpg";
-    const countyClare = "https://i.imgur.com/idjXzVQ.jpg";
-    const craterRock = "https://i.imgur.com/8DYumaY.jpg";
-    const giauPass = "https://i.imgur.com/8IuucQZ.jpg";
-
+    // const bogliasco = "https://i.imgur.com/Gu5Cznz.jpg";
+    // const countyClare = "https://i.imgur.com/idjXzVQ.jpg";
+    // const craterRock = "https://i.imgur.com/8DYumaY.jpg";
+    // const giauPass = "https://i.imgur.com/8IuucQZ.jpg";
     return (
         <div id="hero">
             <Swiper
@@ -43,16 +47,22 @@ function HomeBanner() {
                 loop={"true"}
             >
                 <SwiperSlide>
-                    <img src={bogliasco} />
+                    <img src={banner1} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={countyClare} />
+                    <img src={banner2} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={craterRock} />
+                    <img src={banner3} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={giauPass} />
+                    <img src={banner4} />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src={banner5} />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src={banner6} />
                 </SwiperSlide>
             </Swiper>
         </div>
