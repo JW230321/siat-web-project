@@ -88,10 +88,6 @@ function Signup() {
                                         </select>
                                     </div>
 
-                                    <p className="form-text text-muted mb-3">
-                                        By registering you agree with our terms and condition.
-                                    </p>
-
                                     <div className="align-items-center d-flex">
                                         <button onClick={createMember} className="btn btn-primary ms-auto">
                                             가입하기
@@ -104,9 +100,6 @@ function Signup() {
                                     Already have an account? <a href="index.html" className="text-dark">Login</a>
                                 </div>
                             </div>
-                        </div>
-                        <div className="text-center mt-5 text-muted">
-                            Copyright &copy; 2017-2021 &mdash; Your Company
                         </div>
                     </div>
                 </div>

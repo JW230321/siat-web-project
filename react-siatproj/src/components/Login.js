@@ -48,7 +48,7 @@ function Login({handleLogin}) {
                     <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9" style={{ height: "55vh", marginTop: "100px" }}>
                         <div className="card shadow-lg">
                             <div className="card-body p-5">
-                                <h1 className="fs-4 card-title fw-bold mb-4">Login</h1>
+                                <h1 className="fs-4 card-title fw-bold mb-4">로그인</h1>
                                 <form method="POST" className="needs-validation" noValidate="" autoComplete="off">
                                     <div className="mb-3">
                                         <label className="mb-2 text-muted" htmlFor="email">E-Mail Address</label>
@@ -76,7 +76,7 @@ function Login({handleLogin}) {
                                             <label htmlFor="remember" className="form-check-label">Remember Me</label>
                                         </div>
                                         <button className="btn btn-primary ms-auto" onClick={loginMember}>
-                                            Login
+                                            로그인
                                         </button>
                                     </div>
                                 </form>
@@ -86,9 +86,6 @@ function Login({handleLogin}) {
                                     Don't have an account? <a href="register.html" className="text-dark">Create One</a>
                                 </div>
                             </div>
-                        </div>
-                        <div className="text-center mt-5 text-muted">
-                            Copyright &copy; 2017-2021 &mdash; Your Company
                         </div>
                     </div>
                 </div>
