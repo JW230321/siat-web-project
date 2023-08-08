@@ -56,6 +56,14 @@ class BoardService {
         return axios.post(`${BOARD_API_BASE_URL}/${boardId}/comments`, comment);
     }
 
+    updateComment(comment_id, comment) {
+        return axios.put(BOARD_API_BASE_URL + "/" + comment_id, comment);
+    }
+
+    deleteComment(comment_id) {
+        return axios.delete(BOARD_API_BASE_URL + "/comment/" + comment_id);
+    }
+
 }
 
 export default new BoardService();
