@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BoardService from "../board_service/BoardService";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import '../css/readBoard.css'
+import "../css/readBoard.css";
 import FileService from "../file_service/FileService";
 
 const ReadBoardComponent = () => {
@@ -18,39 +18,37 @@ const ReadBoardComponent = () => {
 
   // 이미지 파일 인식하기
   const isImageFile = (fileName) => {
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-    const ext = fileName.split('.').pop().toLowerCase();
+    const imageExtensions = ["jpg", "jpeg", "png", "gif"];
+    const ext = fileName.split(".").pop().toLowerCase();
     return imageExtensions.includes(ext);
   };
 
   useEffect(() => {
-    setFindByMember(JSON.parse(localStorage.getItem("MemberData")))
+    setFindByMember(JSON.parse(localStorage.getItem("MemberData")));
     //console.log("member===>" + JSON.stringify(findByMember))
-  }, [])
+  }, []);
 
   useEffect(() => {
     BoardService.getOneBoard(board_id).then((res) => {
       //console.log("====>" + JSON.stringify(res.data))
       setBoard(res.data);
-      setImageFiles(res.data.files)
+      setImageFiles(res.data.files);
       setComments(res.data.comments);
       setCommentsCount(res.data.comments.length);
     });
   }, [board_id]);
   //글 작성시간
   const returnDate1 = (cTime) => {
-    return (
-      <label>
-        {formatDateTime(cTime)}
-      </label>
-    );
+    return <label>{formatDateTime(cTime)}</label>;
   };
 
   //글 수정시간
   const returnDate2 = (uTime) => {
     return (
       <label>
-        <span>{formatDateTime(uTime)} <span style={{ fontSize: "13px" }}>수정</span></span>
+        <span>
+          {formatDateTime(uTime)} <span style={{ fontSize: "13px" }}>수정</span>
+        </span>
       </label>
     );
   };
@@ -77,14 +75,12 @@ const ReadBoardComponent = () => {
     const newComment = {
       content: comment,
       board: board, // 해당 댓글이 속한 게시물 정보
-      author: findByMember
+      author: findByMember,
     };
-
 
     // CommentService를 이용하여 서버로 댓글 정보를 전송
     BoardService.createComment(newComment, board_id)
       .then((res) => {
-
         console.log("댓글 추가 성공:", JSON.stringify(res.data));
         // 새로운 댓글 목록을 가져와서 업데이트
         BoardService.getOneBoard(board_id)
@@ -104,39 +100,43 @@ const ReadBoardComponent = () => {
     setComment("");
   };
 
+
   //날짜 분까지만 출력
   const formatDateTime = (dateTimeString) => {
     if (!dateTimeString) {
-      return ''; // 처음에 글작성시 수정시간이 필요없으므로 출력되지 않는다
+      return ""; // 처음에 글작성시 수정시간이 필요없으므로 출력되지 않는다
     }
     const dateTime = new Date(dateTimeString);
     const year = dateTime.getFullYear();
-    const month = String(dateTime.getMonth() + 1).padStart(2, '0');
-    const date = String(dateTime.getDate()).padStart(2, '0');
-    const hours = String(dateTime.getHours()).padStart(2, '0');
-    const minutes = String(dateTime.getMinutes()).padStart(2, '0');
+    const month = String(dateTime.getMonth() + 1).padStart(2, "0");
+    const date = String(dateTime.getDate()).padStart(2, "0");
+    const hours = String(dateTime.getHours()).padStart(2, "0");
+    const minutes = String(dateTime.getMinutes()).padStart(2, "0");
 
     return `${year}. ${month}. ${date}. ${hours}:${minutes}`;
   };
 
-  const uuidPattern = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
+  const uuidPattern =
+    /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
 
   const download = (uploadfile_id, fileName) => {
-    FileService.downloadFile(uploadfile_id, {responseType: "blob"}).then(res => {
+    FileService.downloadFile(uploadfile_id, { responseType: "blob" }).then(
+      (res) => {
         console.log("success!" + res);
 
         const blob = new Blob([res.data], {
-            type: res.headers["Content-Type"]
+          type: res.headers["Content-Type"],
         });
 
-          const link = document.createElement("a");
-          link.href = URL.createObjectURL(blob);
-          link.download = fileName;
-          link.click();
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
 
-          URL.revokeObjectURL(link.href);
-    })
-}
+        URL.revokeObjectURL(link.href);
+      }
+    );
+  };
 
   return (
     <div style={{ height: "auto", marginTop: "80px" }}>
@@ -157,11 +157,14 @@ const ReadBoardComponent = () => {
                 </span>
                 {board.updateTime ? (
                   <span style={{ color: "#999999" }}>
-                    {board.author ? board.author.name : "작성자 정보 없음"} | {returnDate2(board.updateTime)}
+                    {board.author ? board.author.name : "작성자 정보 없음"} |{" "}
+                    {returnDate2(board.updateTime)}
                   </span>
                 ) : (
                   <span style={{ color: "#999999" }}>
-                    {board.author ? board.author.name : "작성자 정보 없음"} | {returnDate1(board.createTime)}</span>
+                    {board.author ? board.author.name : "작성자 정보 없음"} |{" "}
+                    {returnDate1(board.createTime)}
+                  </span>
                 )}
               </th>
               <th className="content_count">조회수 {board.count}</th>
@@ -169,7 +172,9 @@ const ReadBoardComponent = () => {
           </thead>
           <tbody>
             <tr>
-              <td colSpan="3"><pre className="content_body">{board.content}</pre></td>
+              <td colSpan="3">
+                <pre className="content_body">{board.content}</pre>
+              </td>
             </tr>
             {/* {
               imageFiles != null ? (imageFiles.map((a, i) => {
@@ -178,53 +183,97 @@ const ReadBoardComponent = () => {
             } */}
           </tbody>
         </table>
-        {
-          imageFiles.length > 0 &&  // imageFiles 배열의 길이가 0보다 큰 경우에만 아래 코드 실행
+        {imageFiles.length > 0 && // imageFiles 배열의 길이가 0보다 큰 경우에만 아래 코드 실행
           imageFiles.map((file, index) => {
-            const fileNameWithoutUUID = file.originName.replace(uuidPattern, "");
-            return (
-              isImageFile(file.originName) ? (
-                <img key={index} src={`/img/${file.originName}`} alt={file.originName} />
-              ) : (
-                <p key={index}>
-                  <a href="#" onClick={() => {download(file.uploadfile_id, file.originName)}}>{fileNameWithoutUUID}</a>
-                </p>
-              )
-            )
-              })
-        }
+            const fileNameWithoutUUID = file.originName.replace(
+              uuidPattern,
+              ""
+            );
+            return isImageFile(file.originName) ? (
+              <img
+                key={index}
+                src={`/img/${file.originName}`}
+                alt={file.originName}
+              />
+            ) : (
+              <p key={index}>
+                <a
+                  href="#"
+                  onClick={() => {
+                    download(file.uploadfile_id, file.originName);
+                  }}
+                >
+                  {fileNameWithoutUUID}
+                </a>
+              </p>
+            );
+          })}
 
         {/*       ================================================================= */}
         <div>
           <div style={{ marginBlock: "20px" }}>
             <span style={{ marginRight: "10px" }}>댓글</span>
-            <span style={{ fontSize: "13px", color: "#999999" }}>총 <span>{commentsCount}</span>건</span>
+            <span style={{ fontSize: "13px", color: "#999999" }}>
+              총 <span>{commentsCount}</span>건
+            </span>
           </div>
-          <div className="comment_zone">
-            {
-              comments.map((comment, index) => (
-                <div key={index}>
-                  <p style={{ marginBottom: "10px" }}>
-                    {comment.author ? (
-                      <>
-                        <span style={{ fontSize: "16px", fontWeight: "bold" }}>{comment.author.name}</span>
-                        {board.author && comment.author.name === board.author.name && (
-                          <span style={{ fontSize: "12px", color: "#999999", marginLeft: "5px" }}>
+          <div>
+            {comments.map((comment, index) => (
+              <div key={index} className="comment_zone">
+                <p style={{ marginBottom: "0px" }}>
+                  {comment.author ? (
+                    <>
+                      <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                        {comment.author.name}
+                      </span>
+                      {board.author &&
+                        comment.author.name === board.author.name && (
+                          <span
+                            style={{
+                              fontSize: "12px",
+                              color: "#999999",
+                              marginLeft: "5px",
+                            }}
+                          >
                             작성자
                           </span>
                         )}
-                      </>
-                    ) : (
-                      <span>작성자 정보 없음</span>
-                    )}
+                    </>
+                  ) : (
+                    <span>작성자 정보 없음</span>
+                  )}
+                </p>
+                <div key={comment.createDate}>
+                  <p
+                    style={{
+                      marginBottom: "1px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    {comment.content}
+                    <button
+                      className="btn btn-primary mt-1"
+                      style={{
+                        marginRight: 5,
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        BoardService.deleteComment(comment.comment_id).then(()=>{
+                          window.location.reload()
+                        })
+                      }}
+                    >
+                      삭제
+                    </button>
                   </p>
-                  <div key={comment.createDate}>
-                    <p style={{ marginBottom: "1px" }}>{comment.content}</p>
-                    <p style={{ fontSize: "12px", color: "#999999" }}>{formatDateTime(comment.createDate)}</p>
-                  </div>
                 </div>
-              ))
-            }
+                <p style={{ fontSize: "12px", color: "#999999" }}>
+                  {formatDateTime(comment.createDate)}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
         <div className="form-group">
@@ -242,7 +291,7 @@ const ReadBoardComponent = () => {
               style={{
                 position: "absolute",
                 bottom: "10px",
-                right: "10px"
+                right: "10px",
               }}
             >
               등록
@@ -251,9 +300,18 @@ const ReadBoardComponent = () => {
         </div>
 
         <div className="button_box">
-          <button className="content_button" onClick={goToList}>목록</button>
-          <Link className="content_button" to={`/create-board/${board.board_id}`} >수정</Link>
-          <button className="content_button" onClick={deleteBoard}>삭제</button>
+          <button className="content_button" onClick={goToList}>
+            목록
+          </button>
+          <Link
+            className="content_button"
+            to={`/create-board/${board.board_id}`}
+          >
+            수정
+          </Link>
+          <button className="content_button" onClick={deleteBoard}>
+            삭제
+          </button>
         </div>
       </div>
     </div>
