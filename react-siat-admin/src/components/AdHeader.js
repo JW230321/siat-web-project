@@ -49,19 +49,40 @@ function AdHeader({ logOut }) {
                                 className="dropdown-toggle">관리</a>
                             <ul className="collapse list-unstyled" id="pageSubmenu">
                                 <li>
-                                    <a href="/userBoard">회원관리</a>
+                                    <a href="/userBoard">회원 관리</a>
                                 </li>
                                 <li>
-                                    <a href="/read">신청서관리</a>
+                                    <a href="/read">신청서 관리</a>
                                 </li>
                                 <li>
                                     <a href="/employment">구인요청 관리</a>
                                 </li>
                                 <li>
-                                    <a href="/noticeList">공지사항</a>
+                                    <a href="/noticeList">공지사항 관리</a>
                                 </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#boardSubmenu" data-toggle="collapse" aria-expanded="false"
+                                className="dropdown-toggle">게시판 관리</a>
+                            <ul className="collapse list-unstyled" id="boardSubmenu">
                                 <li>
                                     <a href="/boardList">자유게시판</a>
+                                </li>
+                                <li>
+                                    <a href="#">익명게시판</a>
+                                </li>
+                                <li>
+                                    <a href="#">과제게시판</a>
+                                </li>
+                                <li>
+                                    <a href="#">자료실</a>
+                                </li>
+                                <li>
+                                    <a href="#">취업후기</a>
+                                </li>
+                                <li>
+                                    <a href="#">공략 & TIP</a>
                                 </li>
                             </ul>
                         </li>
@@ -77,7 +98,7 @@ function AdHeader({ logOut }) {
             </nav>
             <div id="content">
                 <div className="util-area">
-                    <a href="/" onClick={logOutPass} style={{fontSize:16}}>logout</a>
+                    <a href="" onClick={logOutPass} style={{ fontSize: 16 }}>logout</a>
                 </div>
                 <Routes>
                     <Route path="/userBoard" element={<UserBoard />} />
@@ -89,7 +110,7 @@ function AdHeader({ logOut }) {
                     <Route path="/insertNotice" element={<InsertNotice />} />
                     <Route path="/detailNotice/:notice_id" element={<DetailNotice />} />
                     <Route path="/ModifyNotice/:notice_id" element={<ModifyNotice />} />
-                    <Route path="/boardList" element={<BoardList/>} />
+                    <Route path="/boardList" element={<BoardList />} />
                     <Route path="/detailBoard/:board_id" element={<DetailBoard />} />
                     <Route path="/modifyBoard/:board_id" element={<ModifyBoard />} />
                 </Routes>

@@ -110,7 +110,7 @@ body {
 }
  #sidebar ul li.active > a {
      background: transparent;
-     color: #f8b739;
+     /* color: #f8b739; */
 }
  @media (max-width: 991.98px) {
      #sidebar {
